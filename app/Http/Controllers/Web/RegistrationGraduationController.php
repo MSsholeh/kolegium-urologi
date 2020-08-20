@@ -13,7 +13,7 @@ class RegistrationGraduationController extends Controller
     public function register(RequirementGraduation $requirement)
     {
         $data = [
-            'title' => 'Pendaftaran Kelulusan',
+            'title' => 'Pendaftaran Ujian Nasional',
             'requirement' => $requirement,
             'breadcrumbs' => ['Home', 'Jadwal' => route('web.registration-graduation.index'), 'Pendaftaran Kelulusan']
         ];

@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use App\Models\RequirementCertificate;
+use App\Models\RegistrantCertificate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class CertificateController extends Controller
+{
+    public function index()
+    {
+        $user = Auth::user();
+        $data = [
+            'title' => 'Proses Pengajuan Sertifikat',
+            'breadcrumbs' => ['Home' => route('web.home'), 'Sertifikat'],
+            'registered' => $user->registrants_certificate()->where('status', 'Approve')->first(),
+            'progress' => $user->registrants_certificate()->where('status', 'Request')->first(),
+            'rejected' => $user->registrants_certificate()->where('status', 'Reject')->get(),
+            'certificates' => RequirementCertificate::where(['status' => 'Active'])->get(),
+        ];
+
+        return view('web.certificate.index', $data);
+    }
+
+    public function register(RequirementCertificate $requirement)
+    {
+        $data = [
+            'title' => 'Pengajuan Sertifikat',
+            'requirement' => $requirement,
+            'breadcrumbs' => ['Home', 'Sertifikat' => route('web.certificate.index'), 'Pengajuan Sertifikat']
+        ];
+
+        return view('web.certificate.register', $data);
+    }
+
+
+    public function store(Request $request, RequirementCertificate $requirement)
+    {
+        $rules = [];
+        $message = [];
+        $requirements = $requirement->items;
+        foreach ($requirements as $item)
+        {
+            $rule = [];
+
+            if ($item->required && $item->type !== 'Checkbox') {
+                $rule[] = 'required';
+                $message['requirement_' . $item->id.'.required'] = 'Kolom "'.$item->name.'" harus diisi.';
+            } else {
+                $rule[] = 'nullable';
+            }
+
+            if ($item->type === 'File') {
+                $rule[] = 'file';
+            }
+
+            $rules['requirement_' . $item->id] = implode('|', $rule);
+        }
+
+        $request->validate(
+            $rules, $message
+        );
+
+        $user = Auth::user();
+
+        $registrant = RegistrantCertificate::create([
+            'user_id' => $user->id,
+            'requirement_certificate_id' => $requirement->id,
+            'status' => 'Request'
+        ]);
+
+        $items = [];
+        foreach ($requirements as $item)
+        {
+            $field = 'requirement_'.$item->id;
+
+            if (($item->type === 'File') && $request->hasFile($field)) {
+
+                $value = $request->file('requirement_'.$item->id)->store('requirement/certificate/'.$user->id, 'local');
+
+            } else if ($item->type === 'Checkbox' && $request->has('requirement_'.$item->id)) {
+
+                $value = $request->input('requirement_'.$item->id) ? true : false;
+
+            } else {
+
+                $value = $request->has('requirement_'.$item->id) ? $request->input('requirement_'.$item->id) : null;
+
+            }
+
+            if ($value) {
+                $items[] = [
+                    'requirement_certificate_item_id' => $item->id,
+                    'value' => $value
+                ];
+            }
+        }
+
+        $registrant->requirements_certificate()->createMany(
+            $items
+        );
+
+        return response()->json(['success' => true, 'message' => 'Pengajuan Sertifikat Berhasil.']);
+    }
+}

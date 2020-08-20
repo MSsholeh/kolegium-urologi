@@ -86,41 +86,6 @@
                                 <input class="form-control mt-0" type="text" required placeholder="Nomor KTP" name="nik" value="{{ old('nik') }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">
-                                <label>Asal FK</label>
-                                <select name="university_id" required class="form-control select2-university">
-                                    <option></option>
-                                </select>
-                            </div>
-                            {{-- <div class="form-group mt-3">
-                                <label>NIM</label>
-                                <input class="form-control mt-0" type="text" required placeholder="NIM" name="nim" value="{{ old('nim') }}" autocomplete="off">
-                            </div> --}}
-                            <div class="form-group mt-3">
-                                <label>Tahun Ajaran Masuk</label>
-                                <select name="year" class="form-control mt-0 select-select2">
-                                    @php($year = date('Y'))
-                                    @for($i=2010;$i<=$year;$i++)
-                                        <option value="{{ $i }}" @if(old('year') == $i) selected @endif>{{ $i }}</option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
-                                <label>Semester</label>
-                                <select name="semester" class="form-control mt-0 select-select2">
-                                    @for($i=1;$i<11;$i++)
-                                        <option value="{{ $i }}" @if(old('semester') == $i) selected @endif >{{ $i }}</option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
-                                <label>Tahap Kompetensi</label>
-                                <select name="competency" class="form-control mt-0 select-select2" id="">
-                                    <option value="1" @if(old('competency') == 1) selected @endif>Tahap 1 Awal / Dasar – MDU – MDK</option>
-                                    <option value="2" @if(old('competency') == 2) selected @endif>Tahap 2 Magang / OTL 1</option>
-                                    <option value="3" @if(old('competency') == 3) selected @endif>Tahap 3 Mandiri / OTL 2</option>
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
                                 <label>Nama Lengkap</label>
                                 <input class="form-control mt-0" type="text" required placeholder="Nama Lengkap" name="name" value="{{ old('name') }}" autocomplete="off">
                             </div>

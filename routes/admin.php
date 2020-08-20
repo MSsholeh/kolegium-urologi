@@ -23,6 +23,7 @@ Route::middleware('auth:admin')->group(static function () {
         Route::get('period/{type?}', 'SelectController@period')->name('period');
         Route::get('university', 'SelectController@university')->name('university');
         Route::get('registrant/{university_id}', 'SelectController@registrant')->name('registrant');
+        Route::get('registrant-graduation/{university_id}', 'SelectController@registrant_graduation')->name('graduation');
     });
 
     Route::prefix('period')->name('period.')->group(static function() {
@@ -51,6 +52,15 @@ Route::middleware('auth:admin')->group(static function () {
     });
     Route::resource('requirement-graduation', 'RequirementGraduationController');
 
+        Route::resource('requirement', 'RequirementController');
+
+    Route::prefix('requirement-certificate')->name('requirement-certificate.')->group(static function() {
+        Route::get('table', 'RequirementCertificateController@table')->name('table');
+        Route::get('{requirement_certificate}/change', 'RequirementCertificateController@change')->name('change');
+        Route::get('{requirement_certificate}/change', 'RequirementCertificateController@change')->name('change');
+    });
+    Route::resource('requirement-certificate', 'RequirementCertificateController');
+
     Route::prefix('registrant')->name('registrant.')->group(static function() {
         Route::get('{registrant}/validation', 'RegistrantController@validation')->name('validation');
         Route::post('{registrant}/validation', 'RegistrantController@store')->name('store');
@@ -64,6 +74,13 @@ Route::middleware('auth:admin')->group(static function () {
         Route::get('table', 'RegistrantGraduationController@table')->name('table');
     });
     Route::resource('registrant-graduation', 'RegistrantGraduationController')->except(['store']);
+
+    Route::prefix('registrant-certificate')->name('registrant-certificate.')->group(static function() {
+        Route::get('{registrant_certificate}/validation', 'RegistrantCertificateController@validation')->name('validation');
+        Route::post('{registrant_certificate}/validation', 'RegistrantCertificateController@store')->name('store');
+        Route::get('table', 'RegistrantCertificateController@table')->name('table');
+    });
+    Route::resource('registrant-certificate', 'RegistrantCertificateController')->except(['store']);
 
     Route::prefix('sertifikat')->name('sertifikat.')->group(static function() {
         Route::get('table', 'SertifikatController@table')->name('table');

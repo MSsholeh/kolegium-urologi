@@ -34,15 +34,14 @@
                     <div class="kt-portlet__body">
                         <div class="kt-infobox">
                             <div class="kt-infobox__header">
-                                <h2 class="kt-infobox__title">Pendaftaran Ujian Nasional</h2>
+                                <h2 class="kt-infobox__title">Pengajuan Sertifikat</h2>
                             </div>
                             <div class="kt-infobox__body">
                                 @if($registered)
                                     <div class="alert alert-solid-info alert-bold" role="alert">
-                                        <div class="alert-text">Anda telah mendaftar ujian nasional kolegium urologi.</div>
+                                        <div class="alert-text">Anda telah melakukan pengajuan sertifikat.</div>
                                     </div>
                                 @endif
-                                <p>Pendaftaran yang sedang dibuka :</p>
 
                                 <div class="kt-widget11">
                                     <div class="table-responsive">
@@ -57,28 +56,26 @@
                                             </thead>
                                             <tbody>
 
-                                            @if( ! $graduations)
+                                            @if( ! $certificates)
                                                 <tr>
                                                     <td colspan="5" class="text-center">Belum ada Pendaftaran</td>
                                                 </tr>
                                             @else
 
-                                            @foreach($graduations as $graduation)
+                                            @foreach($certificates as $certificate)
                                                 <tr>
                                                     <td>
                                                         {{ $loop->iteration }}.
                                                     </td>
-                                                    <td>{{ $graduation->note }}</td>
-                                                    <td>{{ Daster::tanggal($graduation->created_at) }}</td>
+                                                    <td>{{ $certificate->note }}</td>
+                                                    <td>{{ Daster::tanggal($certificate->created_at) }}</td>
                                                     <td>
-                                                        @if($registered && $registered->requirement_graduation_id === $graduation->id)
+                                                        @if($registered)
                                                             <span class="btn btn-sm btn-label-success btn-bold">Telah Terdaftar</span>
-                                                        @elseif($rejected && $rejected->where('requirement_graduation_id', $graduation->id)->count() > 0)
-                                                            <span class="btn btn-sm btn-label-danger btn-bold">Tidak Lolos</span>
-                                                        @elseif($progress && $progress->requirement_graduation_id === $graduation->id)
+                                                        @elseif($progress)
                                                             <span class="btn btn-sm btn-label-warning btn-bold">Dalam Proses</span>
                                                         @elseif(!$registered && !$progress)
-                                                        <a href="{{ route('web.registration-graduation.register', $graduation->id) }}" class="kt-link kt-link--brand kt-font-bolder shoot">
+                                                        <a href="{{ route('web.certificate.register', $certificate->id) }}" class="kt-link kt-link--brand kt-font-bolder shoot">
                                                             Daftar
                                                         </a>
                                                         @endif
@@ -89,9 +86,6 @@
 
                                             </tbody>
                                         </table>
-                                    </div>
-                                    <div class="kt-widget11__action">
-                                        {{ $graduations ? $graduations->links() : '' }}
                                     </div>
                                 </div>
 

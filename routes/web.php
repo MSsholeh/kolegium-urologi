@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index');
 
 Route::get('file/{path}', 'FileController@get')->name('file')->where(['path' => '.*']);
 
@@ -34,6 +33,15 @@ Route::prefix('schedule')->name('schedule.')->middleware('auth:web')->group(stat
 Route::prefix('graduation')->name('graduation.')->middleware('auth:web')->group(static function () {
     Route::get('/', 'GraduationController@index')->name('index');
     Route::post('register', 'GraduationController@store')->name('store');
+});
+
+Route::prefix('certificate')->name('certificate.')->middleware('auth:web')->group(static function () {
+    Route::get('/', 'CertificateController@index')->name('index');
+});
+
+Route::prefix('certificate/{requirement}')->name('certificate.')->group(static function () {
+    Route::get('register', 'CertificateController@register')->name('register');
+    Route::post('register', 'CertificateController@store')->name('store');
 });
 
 Route::prefix('dashboard')->name('dashboard.')->namespace('Dashboard')

@@ -16,7 +16,7 @@ class GraduationController extends Controller
         $period = Period::registration()->latest('ended_at')->first();
         $user_university = $user->registrants->where('status','Approve')->first();
         $data = [
-            'title' => 'Jadwal Pendaftaran Kelulusan',
+            'title' => 'Jadwal Ujian Nasional',
             'breadcrumbs' => ['Home' => route('web.home'), 'Jadwal'],
             'registered' => $user->registrants_graduation()->where('status', 'Approve')->first(),
             'progress' => $user->registrants_graduation()->where('status', 'Request')->first(),

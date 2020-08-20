@@ -13,7 +13,7 @@
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <label class="form-control-label">Peserta :</label>
-                            <p class="form-control">{{ $value->registrant->user->name }}</p>
+                            <p class="form-control">{{ $value->registrant_graduation->user->name }}</p>
                         </div>
                     </div>
                     <div class="form-group row">

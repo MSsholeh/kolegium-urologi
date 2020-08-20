@@ -96,14 +96,26 @@
 
                                 @php
                                     $registrant = App\Models\Registrant::where('user_id',auth()->user()->id)->where('status','Approve')->first();
-                                    if(!empty($registrant)) { $exam = App\Models\ExamParticipant::where('registrant_id', $registrant->id)->where('graduate','Lulus')->first(); }
                                 @endphp
-                                @if(!empty($exam))
+                                @if(!empty($registrant))
                                     <li class="kt-menu__item kt-menu__item--rel">
                                         <a href="{{ route('web.graduation.index') }}" class="kt-menu__link shoot">
-                                            <span class="kt-menu__link-text">Pendaftaran Kelulusan</span><i class="kt-menu__ver-arrow la la-angle-right"></i>
+                                            <span class="kt-menu__link-text">Pendaftaran Ujian Nasional</span><i class="kt-menu__ver-arrow la la-angle-right"></i>
                                         </a>
                                     </li>
+                                @endif
+
+                                @php
+                                    $graduation = App\Models\RegistrantGraduation::where('user_id',auth()->user()->id)->where('status','Approve')->first();
+                                    if(!empty($graduation)) { $lulus = App\Models\ExamParticipant::where('registrant_graduation_id', $graduation->id)->where('graduate','Lulus')->first(); }
+                                @endphp
+
+                                @if(!empty($lulus))
+                                <li class="kt-menu__item kt-menu__item--rel">
+                                    <a href="{{ route('web.certificate.index') }}" class="kt-menu__link shoot">
+                                        <span class="kt-menu__link-text">Pengajuan Sertifikat</span><i class="kt-menu__ver-arrow la la-angle-right"></i>
+                                    </a>
+                                </li>
                                 @endif
 
                             @endif

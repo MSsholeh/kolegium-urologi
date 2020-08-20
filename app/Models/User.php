@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(RegistrantGraduation::class);
     }
 
+    public function registrants_certificate(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(RegistrantCertificate::class);
+    }
+
     public function university()
     {
         return $this->belongsTo(University::class);

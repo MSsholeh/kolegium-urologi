@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Period;
 use App\Models\Registrant;
+use App\Models\RegistrantGraduation;
 use App\Models\University;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,6 +52,19 @@ class SelectController extends Controller
             ->where('status', 'Approve')
             ->doesntHave('participate')
         ->select('registrants.id', 'users.name as text');
+
+        if ($request->keyword) $data->where('name', 'like', '%'.$request->keyword.'%');
+
+        return response()->json([ 'items' => $data->get() ]);
+    }
+
+    public function registrant_graduation(Request $request, $university)
+    {
+        $data = RegistrantGraduation::where('registrants_graduation.university_id', $university)
+            ->join('users', 'users.id', 'registrants_graduation.user_id')
+            ->where('status', 'Approve')
+            ->doesntHave('participate')
+        ->select('registrants_graduation.id', 'users.name as text');
 
         if ($request->keyword) $data->where('name', 'like', '%'.$request->keyword.'%');
 

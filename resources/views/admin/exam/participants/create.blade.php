@@ -44,7 +44,7 @@
         });
 
         Daster.select2('.select2-registrant', {
-            url: '{{ route('admin.select.registrant', $exam->university_id) }}',
+            url: '{{ route('admin.select.graduation', $exam->university_id) }}',
             minimumInputLength: 0
         });
     });

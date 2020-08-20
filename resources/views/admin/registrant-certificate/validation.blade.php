@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <h5>Persyaratan Pendaftaran Kelulusan</h5>
+                    <h5>Persyaratan Pengajuan Sertifikat</h5>
 
                     @foreach($requirements as $requirement)
 
@@ -67,6 +67,10 @@
                             <input data-switch="true" name="result" id="result" @if($registrant->status === 'Approve') checked @endif type="checkbox" data-on-text="Lolos" data-handle-width="50" data-off-text="Gagal" data-on-color="success">
                         </div>
                     </div>
+                    <div class="form-group" id="certificate">
+                        <label for="certificate">Nomor Sertifikat</label>
+                        <input type="text" class="form-control" name="no_sertifikat" value="{{ $registrant->user->no_sertifikat }}" placeholder="Masukkan Nomor Sertifikat"><br>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,5 +94,17 @@
 
         $('[data-switch=true]').bootstrapSwitch();
 
+        $(document).ready(function(){
+            $("#certificate").hide();
+            $('#result').on('switchChange.bootstrapSwitch', function (e, data) {
+                var state=$(this).bootstrapSwitch('state');//returns true or false
+                if(state){
+                    $("#certificate").show();
+                }
+                else{
+                    $("#certificate").hide();
+                }
+            });
+        });
     });
 </script>

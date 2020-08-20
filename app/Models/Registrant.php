@@ -28,16 +28,6 @@ class Registrant extends Model
         return $this->belongsTo(Requirement::class);
     }
 
-    public function requirements_graduation(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(RegistrantRequirementGraduation::class);
-    }
-
-    public function requirement_graduation()
-    {
-        return $this->belongsTo(RequirementGraduation::class);
-    }
-
     public function participate()
     {
         return $this->hasOne(ExamParticipant::class);

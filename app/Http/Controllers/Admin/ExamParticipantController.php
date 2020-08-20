@@ -54,13 +54,13 @@ class ExamParticipantController extends Controller
 //                return '<span class="kt-badge kt-badge--inline kt-badge--'.config('constant.validation_status.badge.'.$data->status).'">'.$data->status.'</span>';
 //            })
             ->addColumn('name', static function ($data) {
-                return $data->registrant->user->name ?? '';
+                return $data->registrant_graduation->user->name ?? '';
             })
             ->addColumn('email', static function ($data) {
-                return $data->registrant->user->email ?? '';
+                return $data->registrant_graduation->user->email ?? '';
             })
             ->addColumn('nik', static function ($data) {
-                return $data->registrant->user->nik ?? '';
+                return $data->registrant_graduation->user->nik ?? '';
             })
             ->addColumn('action', function ($data) use($exam) {
                 return ' <a href="' . route($this->route . '.edit', [$exam->id, $data->id]) . '" class="btn btn-label-info btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Set Kelulusan" data-boundary="window"><i class="la la-graduation-cap"></i></a>'.
@@ -88,7 +88,7 @@ class ExamParticipantController extends Controller
         ]);
 
         $exam->participants()->create([
-            'registrant_id' => $request->registrant_id,
+            'registrant_graduation_id' => $request->registrant_id,
             'description' => $request->description
         ]);
 

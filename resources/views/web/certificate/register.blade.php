@@ -33,13 +33,13 @@
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Form Persyaratan Pendaftaran Ujian Nasional
+                            Form Pengajuan Sertificate
                         </h3>
                     </div>
                 </div>
 
                 <!--begin::Form-->
-                <form class="kt-form" id="form-register" action="{{ route('web.registration-graduation.store', $requirement->id) }}" enctype="multipart/form-data" method="POST">
+                <form class="kt-form" id="form-register" action="{{ route('web.certificate.store', $requirement->id) }}" enctype="multipart/form-data" method="POST">
                     <div class="kt-portlet__body">
                         <div class="form-group form-group-last">
                             <div class="alert alert-secondary" role="alert">
@@ -104,7 +104,7 @@
 
             Daster.initValidate("#form-register", {
                 rules: {},
-                contentReload: '{{ route('web.graduation.index') }}'
+                contentReload: '{{ route('web.certificate.index') }}'
             });
 
         });

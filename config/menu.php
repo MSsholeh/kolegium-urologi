@@ -33,6 +33,20 @@ return [
             'permission' => 'Pendaftar: Lihat'
         ],
         [
+            'name' => 'Persyaratan Ujian Nasional',
+            'route' => 'admin.requirement-graduation.index',
+            'active' => 'admin.requirement-graduation.*',
+            'icon' => 'block',
+            'permission' => 'Persyaratan Lulus: Lihat, Tambah, Ubah, Hapus'
+        ],
+        [
+            'name' => 'Pendaftar Ujian Nasional',
+            'route' => 'admin.registrant-graduation.index',
+            'active' => 'admin.registrant-graduation.*',
+            'icon' => 'block',
+            'permission' => 'Pendaftar Lulus: Lihat'
+        ],
+                [
             'name' => 'Jadwal Ujian',
             'route' => 'admin.exam.index',
             'active' => 'admin.exam*',
@@ -40,18 +54,18 @@ return [
             'permission' => 'Jadwal Ujian: Lihat'
         ],
         [
-            'name' => 'Persyaratan kelulusan',
-            'route' => 'admin.requirement-graduation.index',
-            'active' => 'admin.requirement-graduation.*',
+            'name' => 'Persyaratan Sertifikat Terbit',
+            'route' => 'admin.requirement-certificate.index',
+            'active' => 'admin.requirement-certificate.*',
             'icon' => 'block',
-            'permission' => 'Persyaratan Lulus: Lihat, Tambah, Ubah, Hapus'
+            'permission' => 'Persyaratan Sertifikat: Lihat, Tambah, Ubah, Hapus'
         ],
         [
-            'name' => 'Pendaftar Kelulusan',
-            'route' => 'admin.registrant-graduation.index',
-            'active' => 'admin.registrant-graduation.*',
+            'name' => 'Pendaftar Sertifikat Terbit',
+            'route' => 'admin.registrant-certificate.index',
+            'active' => 'admin.registrant-certificate.*',
             'icon' => 'block',
-            'permission' => 'Pendaftar Lulus: Lihat'
+            'permission' => 'Pendaftar Sertifikat: Lihat'
         ],
         [
             'name' => 'Sertifikat Terbit',
