@@ -1,0 +1,37 @@
+/**
+    DataTables Override
+ */
+
+.dataTables_wrapper {
+    .dataTables_filter {
+        display: none;
+    }
+    table thead.thead-dark tr th {
+        background-color: #484b74;
+        color: #fff !important;
+    }
+}
+.row div[class^="col-"] .dataTables_wrapper .dataTables_scroll {
+    margin: 1rem -25px !important;
+}
+
+
+/**
+    Metronic Fixing
+ */
+
+input.form-control::placeholder {
+    color: #b3b8d2;
+}
+
+#kt_filter .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Customize themes */
+#kt_footer {
+    background-color: #1e1e2d;
+}
+.kt-footer .kt-footer__copyright, .kt-footer .kt-footer__copyright .kt-link {
+    color: #c0c4d1;
+}

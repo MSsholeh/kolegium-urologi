@@ -1,0 +1,14 @@
+//
+// Custom Style
+// Here you can put your custom sass code, use global SASS mixings and variables to override the theme or add new styles according to your requirements.
+// Most of the changes can be achieved via global or layout level sass variable changes.
+//
+
+
+.form-control::placeholder {
+    color: #b3b8d2;
+}
+
+.select2.select2-container {
+    width: 100%!important;
+}
