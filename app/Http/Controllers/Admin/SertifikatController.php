@@ -80,7 +80,7 @@ class SertifikatController extends Controller
     }
 
     public function download($id){
-        $file = public_path('sertifikat\template.rtf');
+        $file = public_path('sertifikat/template.rtf');
         $user = User::where('id',$id)->first();
         $diffYears = \Carbon\Carbon::now()->diffInYears(Carbon::parse($user->dob));
 
