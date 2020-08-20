@@ -98,6 +98,9 @@ class SertifikatController extends Controller
 
         $nama_file = 'Sertifikat-'.$user->name.'-'.$user->no_sertifikat.'.doc';
         ob_clean();
+        header("Content-type: text/rtf; charset=UTF-8");
+        header("Content-Disposition: attachment; filename=myfile.rtf");
+        header("Expires: 0");
         return WordTemplate::export($file, $array, $nama_file);
     }
 
