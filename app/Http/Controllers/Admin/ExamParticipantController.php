@@ -50,9 +50,16 @@ class ExamParticipantController extends Controller
             ->editColumn('graduate', static function ($data) {
                 return $data->graduate;
             })
-//            ->editColumn('status', static function($data) {
-//                return '<span class="kt-badge kt-badge--inline kt-badge--'.config('constant.validation_status.badge.'.$data->status).'">'.$data->status.'</span>';
-//            })
+            ->addColumn('status', static function ($data) {
+                if($data->graduate=="Lulus"){
+                    $status = '<span class="badge badge-success">Lulus</span>';
+                }else if($data->graduate=="Tidak Lulus"){
+                    $status = '<span class="badge badge-danger">Tidak lulus</span>';
+                }else{
+                    $status = '<span class="badge badge-warning">Menunggu Konfirmasi</span>';
+                }
+                return $status;
+            })
             ->addColumn('name', static function ($data) {
                 return $data->registrant_graduation->user->name ?? '';
             })
@@ -66,7 +73,7 @@ class ExamParticipantController extends Controller
                 return ' <a href="' . route($this->route . '.edit', [$exam->id, $data->id]) . '" class="btn btn-label-info btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Set Kelulusan" data-boundary="window"><i class="la la-graduation-cap"></i></a>'.
                 ' <a href="' . route($this->route . '.destroy', [$exam->id, $data->id]) . '" class="btn btn-label-danger btn-icon btn-sm action-delete"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Hapus" data-boundary="window"><i class="fa fa-trash"></i></a>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['status','action'])
             ->make(true);
     }
 

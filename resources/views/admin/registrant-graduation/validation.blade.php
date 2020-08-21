@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <h5>Persyaratan Pendaftaran Kelulusan</h5>
+                    <h5>Persyaratan Pendaftaran Ujian Nasional</h5>
 
                     @foreach($requirements as $requirement)
 

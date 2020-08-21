@@ -52,15 +52,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nik' => ['required', 'string', 'min:16', 'max:16', 'unique:users'],
+            'npa' => ['required', 'string', 'max:16', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-
-            //'university_id' => 'required',
-            //'nim' => 'required',
-            //'year' => 'required',
-            //'semester' => 'required',
-            //'competency' => 'required',
+            'university' => ['required', 'string', 'max:100'],
             'pob' => 'required',
             'dob' => 'required',
             'address' => 'required',
@@ -78,15 +74,11 @@ class RegisterController extends Controller
     {
         return User::create([
             'nik' => $data['nik'],
+            'npa' => $data['npa'],
+            'university' => $data['university'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-
-            //'university_id' => $data['university_id'],
-            //'nim' => $data['nim'],
-            //'year' => $data['year'],
-            //'semester' => $data['semester'],
-            //'competency' => $data['competency'],
             'pob' => $data['pob'],
             'dob' => Daster::parseTanggal($data['dob']),
             'address' => $data['address'],

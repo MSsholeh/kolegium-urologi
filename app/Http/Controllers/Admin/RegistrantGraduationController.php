@@ -98,8 +98,8 @@ class RegistrantGraduationController extends Controller
             })
             ->addColumn('action', function ($data) {
 
-                $validation = auth()->user()->can('Pendaftar Lulus: Validasi') ? ' <a href="'.route($this->route.'.validation', [$data->primary]).'" class="btn btn-label-brand btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Validasi Persyaratan" data-boundary="window"><i class="la la-check-circle-o"></i></a>' : '';
-                $destroy = auth()->user()->can('Pendaftar Lulus: Tambah, Ubah, Hapus') ? ' <a href="' . route($this->route . '.destroy', [$data->primary]) . '" class="btn btn-label-danger btn-icon btn-sm action-delete"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Hapus" data-boundary="window"><i class="fa fa-trash"></i></a>' : '';
+                $validation = auth()->user()->can('Pendaftar Ujian: Validasi') ? ' <a href="'.route($this->route.'.validation', [$data->primary]).'" class="btn btn-label-brand btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Validasi Persyaratan" data-boundary="window"><i class="la la-check-circle-o"></i></a>' : '';
+                $destroy = auth()->user()->can('Pendaftar Ujian: Tambah, Ubah, Hapus') ? ' <a href="' . route($this->route . '.destroy', [$data->primary]) . '" class="btn btn-label-danger btn-icon btn-sm action-delete"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Hapus" data-boundary="window"><i class="fa fa-trash"></i></a>' : '';
 
                 return $validation;
             })
@@ -112,7 +112,7 @@ class RegistrantGraduationController extends Controller
         $registrant = RegistrantGraduation::where('id', $id)->with('user', 'university', 'requirements_graduation.item')->first();
 
         $data = [
-            'title' => 'Validasi Pendaftar Lulus',
+            'title' => 'Validasi Pendaftar Ujian Nasional',
             'route' => $this->route,
             'registrant' => $registrant,
             'requirements' => $registrant->requirements_graduation

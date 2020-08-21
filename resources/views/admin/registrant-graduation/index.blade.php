@@ -40,7 +40,7 @@
                         <form class="kt-form kt-form--fit kt-margin-b-20 hidden" id="kt_filter" style="display: none;">
                             <div class="row kt-margin-b-20">
                                 <div class="col-lg-12 kt-margin-b-10">
-                                    <label>Nama Pendaftar Kelulusan</label>
+                                    <label>Nama Pendaftar ujian Nasioonal</label>
                                     <input type="text" class="form-control kt-input" placeholder="Nama Pendaftar" data-col-index="1">
                                 </div>
                                 <div class="col-lg-4 kt-margin-b-10">
@@ -55,7 +55,7 @@
                                     <label>Status</label>
                                     <select class="form-control kt-input" data-col-index="7" placeholder="Status">
                                         <option value="">- Pilih Status -</option>
-                                        <option value="Request">Pengajuan Pendaftaran Kelulusan</option>
+                                        <option value="Request">Pengajuan Pendaftaran Ujian Nasional</option>
                                         <option value="Approve">Diterima</option>
                                         <option value="Reject">Ditolak</option>
                                     </select>

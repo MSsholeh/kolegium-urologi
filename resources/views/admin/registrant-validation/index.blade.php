@@ -18,12 +18,6 @@
                         <i class="la la-search"></i>
                         Filter
                     </button>
-                    @can('Peserta Ujian: Tambah, Ubah, Hapus')
-                        <a href="{{ route($route.'.create', $exam->id) }}" class="btn btn-bold btn-twitter btn-sm btn-icon-h kt-margin-l-10 shoot-modal">
-                            <i class="flaticon2-plus"></i>
-                            Tambah Peserta
-                        </a>
-                    @endcan
                 </div>
             </div>
         </div>
@@ -45,13 +39,26 @@
 
                         <form class="kt-form kt-form--fit kt-margin-b-20 hidden" id="kt_filter" style="display: none;">
                             <div class="row kt-margin-b-20">
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                    <label>Nama</label>
-                                    <input type="text" class="form-control kt-input" placeholder="Judul" data-col-index="1">
+                                <div class="col-lg-12 kt-margin-b-10">
+                                    <label>Nama Pendaftar</label>
+                                    <input type="text" class="form-control kt-input" placeholder="Nama Pendaftar" data-col-index="1">
                                 </div>
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                    <label>NIK</label>
-                                    <input type="text" class="form-control kt-input" placeholder="Kontent" data-col-index="2">
+                                <div class="col-lg-4 kt-margin-b-10">
+                                    <label>Universitas</label>
+                                    <input type="text" class="form-control kt-input" placeholder="Nama Universitas" data-col-index="3">
+                                </div>
+                                <div class="col-lg-4 kt-margin-b-10">
+                                    <label>Periode</label>
+                                    <input type="text" class="form-control kt-input" placeholder="Periode" data-col-index="6">
+                                </div>
+                                <div class="col-lg-4 kt-margin-b-10">
+                                    <label>Status</label>
+                                    <select class="form-control kt-input" data-col-index="7" placeholder="Status">
+                                        <option value="">- Pilih Status -</option>
+                                        <option value="Request">Pengajuan Pendaftaran</option>
+                                        <option value="Approve">Diterima</option>
+                                        <option value="Reject">Ditolak</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -81,8 +88,8 @@
                                 <th width="35px">No</th>
                                 <th>Nama</th>
                                 <th>NIK</th>
-                                <th>Email</th>
-                                <th>Status Kelulusan</th>
+                                <th>Universitas</th>
+                                <th>Status Pendaftaran</th>
                                 <th width="120px">Aksi</th>
                             </tr>
                             </thead>
@@ -102,13 +109,13 @@
         jQuery(document).ready(function () {
 
             Daster.initTable('#main-table', {
-                url: '{{ route($route.'.table', $exam->id) }}',
+                url: '{{ route($route.'.table') }}',
                 columns: [
                     { data: 'DT_RowIndex', searchable: false, orderable: false, className: 'dt-center' },
-                    { data: 'name', name: 'registrant.user.name' },
-                    { data: 'nik', name: 'registrant.user.nik' },
-                    { data: 'email', name: 'registrant.user.email' },
-                    { data: 'status' },
+                    { data: 'name', name: 'user.name' },
+                    { data: 'nik', name: 'user.nik' },
+                    { data: 'university', name: 'university.name' },
+                    { data: 'status'},
                     { data: 'action', searchable: false, orderable: false, className: 'dt-center' },
                 ],
                 order: [3, 'desc']

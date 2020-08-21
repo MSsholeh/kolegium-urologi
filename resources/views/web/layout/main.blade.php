@@ -95,7 +95,7 @@
                                 </li>
 
                                 @php
-                                    $registrant = App\Models\Registrant::where('user_id',auth()->user()->id)->where('status','Approve')->first();
+                                    $registrant = App\Models\Registrant::where('user_id',auth()->user()->id)->where('graduate','Lulus')->first();
                                 @endphp
                                 @if(!empty($registrant))
                                     <li class="kt-menu__item kt-menu__item--rel">

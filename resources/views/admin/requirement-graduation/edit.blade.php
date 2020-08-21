@@ -11,7 +11,7 @@
         <div class="kt-portlet__body">
             <div class="kt-section">
                 <div class="kt-section__content">
-                    @if(auth()->user()->can('Persyaratan Lulus: Lihat Semua'))
+                    @if(auth()->user()->can('Persyaratan Ujian: Lihat Semua'))
                         <div class="form-group row">
                             <div class="col-lg-12">
                                 <label class="form-control-label">Universitas <span class="kt-font-danger">*</span> :</label>
@@ -44,7 +44,7 @@
             </div>
             <div class="kt-section">
                 <h3 class="kt-section__title">
-                    Persyaratan Kelulusan
+                    Persyaratan Ujian Nasional
                 </h3>
                 <div class="kt-section__content">
                     <div id="requirements">

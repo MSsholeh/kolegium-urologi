@@ -23,7 +23,7 @@ class HomeController extends Controller
         $universities = $period ? University::with(['registrant' => function($query) use($period) {
             $query->whereHas('requirement', function($queryRequirement) use($period) {
                 $queryRequirement->where('period_id', $period->id);
-            })->with('user.university');
+            });
         }])->get() : null;
 
         $examPeriod = Period::exam()->latest('ended_at')->first();

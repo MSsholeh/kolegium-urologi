@@ -6,6 +6,7 @@ use App\Helpers\Daster;
 use App\Http\Controllers\Controller;
 use App\Models\Period;
 use App\Models\Registrant;
+use App\Models\University;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,8 @@ class SertifikatController extends Controller
             'route' => $this->route
         ];
 
+
+
         return view($this->route.'.index', $data);
     }
 
@@ -53,11 +56,7 @@ class SertifikatController extends Controller
 
     public function table(DataTables $datatables)
     {
-        $query = User::select('*')->whereNotNull('no_sertifikat')->with('university');
-        $admin = Auth::user();
-        if ($admin->isAdminUniversity()) {
-           $query->where('university_id', $admin->university_id);
-        }
+        $query = User::select('*')->whereNotNull('no_sertifikat')->with('registrants_graduation');
 
         return $datatables->eloquent($query)
             ->addIndexColumn()
@@ -65,7 +64,9 @@ class SertifikatController extends Controller
                 return Daster::tanggal($data->date_sertifikat, 1, false);
             })
             ->editColumn('universitas', static function ($data) {
-                return $data->university->name;
+                $university = $data->registrants_graduation[0]['university_id'];
+                $t = University::where('id',$university)->first();
+                return $t->name;
             })
             ->addColumn('action', function ($data) {
 
@@ -82,6 +83,8 @@ class SertifikatController extends Controller
     public function download($id){
         $file = public_path('sertifikat/template.rtf');
         $user = User::where('id',$id)->first();
+        $university = $user->registrants_graduation[0]['university_id'];
+        $university_name = University::where('id',$university)->first();
         $diffYears = \Carbon\Carbon::now()->diffInYears(Carbon::parse($user->dob));
 
         $array = array(
@@ -90,7 +93,7 @@ class SertifikatController extends Controller
             '[tempat_lahir]' => $user->pob,
             '[tanggal_lahir_in]' => Daster::tanggal($user->dob, 1, false),
             '[tanggal_lahir_en]' => Carbon::parse($user->dob)->format('F d, Y'),
-            '[universitas]' => $user->university->name,
+            '[universitas]' => $university_name->name,
             'berlakusertifikat' => Daster::tanggal(Carbon::parse($user->dob)->addYear($diffYears+5), 1, false),
             'validsertifikat' => Carbon::parse($user->dob)->addYear($diffYears+5)->format('F d, Y'),
             'datesertifikat' => Daster::tanggal($user->date_sertifikat, 1, false),

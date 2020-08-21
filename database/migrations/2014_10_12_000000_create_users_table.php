@@ -21,11 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->string('nik');
-            $table->unsignedBigInteger('university_id')->nullable();
+            $table->string('npa');
+            $table->string('university');
             $table->string('nim')->nullable();
-            $table->unsignedInteger('year')->nullable();
-            $table->unsignedTinyInteger('semester')->nullable();
-            $table->unsignedTinyInteger('competency')->nullable();
             $table->string('pob');
             $table->date('dob');
             $table->text('address');

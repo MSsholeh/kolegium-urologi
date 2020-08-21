@@ -68,6 +68,13 @@ Route::middleware('auth:admin')->group(static function () {
     });
     Route::resource('registrant', 'RegistrantController')->except(['store']);
 
+    Route::prefix('registrant-validation')->name('registrant-validation.')->group(static function() {
+        Route::get('{registrant_validation}/validation', 'RegistrantValidationController@validation')->name('validation');
+        Route::post('{registrant_validation}/validation', 'RegistrantValidationController@store')->name('store');
+        Route::get('table', 'RegistrantValidationController@table')->name('table');
+    });
+    Route::resource('registrant-validation', 'RegistrantValidationController')->except(['store']);
+
     Route::prefix('registrant-graduation')->name('registrant-graduation.')->group(static function() {
         Route::get('{registrant_graduation}/validation', 'RegistrantGraduationController@validation')->name('validation');
         Route::post('{registrant_graduation}/validation', 'RegistrantGraduationController@store')->name('store');

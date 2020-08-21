@@ -67,11 +67,6 @@
                             <input data-switch="true" name="result" id="result" @if($registrant->status === 'Approve') checked @endif type="checkbox" data-on-text="Lolos" data-handle-width="50" data-off-text="Gagal" data-on-color="success">
                         </div>
                     </div>
-                    <div class="form-group" id="nim">
-                        <label for="nim">NIM</label>
-                        <input type="text" class="form-control" id="nim" name="nim" value="{{ $registrant->user->nim }}" placeholder="Masukkan NIM Mahasiswa">
-                        {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                    </div>
                 </div>
             </div>
         </div>
@@ -94,19 +89,6 @@
         });
 
         $('[data-switch=true]').bootstrapSwitch();
-
-        $(document).ready(function(){
-            $("#nim").hide();
-            $('#result').on('switchChange.bootstrapSwitch', function (e, data) {
-                var state=$(this).bootstrapSwitch('state');//returns true or false
-                if(state){
-                    $("#nim").show();
-                }
-                else{
-                    $("#nim").hide();
-                }
-            });
-        });
     });
 
 

@@ -28,23 +28,30 @@ return [
         [
             'name' => 'Pendaftar',
             'route' => 'admin.registrant.index',
-            'active' => 'admin.registrant*',
+            'active' => 'admin.registrant.*',
             'icon' => 'block',
             'permission' => 'Pendaftar: Lihat'
+        ],
+        [
+            'name' => 'Validasi Ujian Pendaftaran',
+            'route' => 'admin.registrant-validation.index',
+            'active' => 'admin.registrant-validation*',
+            'icon' => 'block',
+            'permission' => 'Pendaftar Validation: Lihat, Tambah, Ubah, Hapus'
         ],
         [
             'name' => 'Persyaratan Ujian Nasional',
             'route' => 'admin.requirement-graduation.index',
             'active' => 'admin.requirement-graduation.*',
             'icon' => 'block',
-            'permission' => 'Persyaratan Lulus: Lihat, Tambah, Ubah, Hapus'
+            'permission' => 'Persyaratan Ujian: Lihat, Tambah, Ubah, Hapus'
         ],
         [
             'name' => 'Pendaftar Ujian Nasional',
             'route' => 'admin.registrant-graduation.index',
             'active' => 'admin.registrant-graduation.*',
             'icon' => 'block',
-            'permission' => 'Pendaftar Lulus: Lihat'
+            'permission' => 'Pendaftar Ujian: Lihat'
         ],
                 [
             'name' => 'Jadwal Ujian',

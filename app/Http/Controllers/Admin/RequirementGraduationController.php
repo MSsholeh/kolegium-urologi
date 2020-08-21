@@ -73,8 +73,8 @@ class RequirementGraduationController extends Controller
                 $active = '<a href="' . route($this->route . '.change', [$data->id]) . '" class="btn btn-label-' . ($data->status === 'Active' ? 'success' : 'dark') . ' btn-icon btn-sm action-confirm" data-confirm="ubah status" data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Set ' . ($data->status === 'Active' ? 'Tidak' : '') . ' Aktif" data-boundary="window"><i class="fa fa-check-circle"></i></a>';
                 $edit = ' <a href="' . route($this->route . '.edit', [$data->id]) . '" class="btn btn-label-brand btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Edit" data-boundary="window"><i class="fa fa-pencil-alt"></i></a>';
                 $destroy = ' <a href="' . route($this->route . '.destroy', [$data->id]) . '" class="btn btn-label-danger btn-icon btn-sm action-delete"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Hapus" data-boundary="window"><i class="fa fa-trash"></i></a>';
-                if (auth()->user()->can('Persyaratan Lulus: Lihat, Tambah, Ubah, Hapus')) {
-                    return $active.$edit.(auth()->user()->can('Persyaratan Lulus: Lihat Semua') || $data->status === 'Inactive' ? $destroy : '');
+                if (auth()->user()->can('Persyaratan Ujian: Lihat, Tambah, Ubah, Hapus')) {
+                    return $active.$edit.(auth()->user()->can('Persyaratan Ujian: Lihat Semua') || $data->status === 'Inactive' ? $destroy : '');
                 }
             })
             ->rawColumns(['action'])

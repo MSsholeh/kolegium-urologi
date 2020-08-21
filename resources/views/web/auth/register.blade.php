@@ -86,6 +86,14 @@
                                 <input class="form-control mt-0" type="text" required placeholder="Nomor KTP" name="nik" value="{{ old('nik') }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">
+                                <label>NPA IDI</label>
+                                <input class="form-control mt-0" type="text" required placeholder="NPA IDI" name="npa" value="{{ old('npa') }}" autocomplete="off">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label>Asal Universitas</label>
+                                <input class="form-control mt-0" type="text" required placeholder="Asal Universitas" name="universitas" value="{{ old('universitas') }}" autocomplete="off">
+                            </div>
+                            <div class="form-group mt-3">
                                 <label>Nama Lengkap</label>
                                 <input class="form-control mt-0" type="text" required placeholder="Nama Lengkap" name="name" value="{{ old('name') }}" autocomplete="off">
                             </div>

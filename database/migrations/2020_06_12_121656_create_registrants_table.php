@@ -19,6 +19,7 @@ class CreateRegistrantsTable extends Migration
             $table->unsignedBigInteger('university_id');
             $table->unsignedBigInteger('requirement_id');
             $table->string('status')->default('Request'); # Request, Approve, Reject
+            $table->string('graduate')->nullable();
             $table->unsignedInteger('submission')->default(1);
             $table->text('note')->nullable();
             $table->dateTime('validated_at')->nullable();

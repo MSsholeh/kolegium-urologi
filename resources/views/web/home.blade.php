@@ -194,7 +194,7 @@
                                         {{ $registrant->user->name }}
                                     </span>
                                     <p class="kt-widget4__text">
-                                        {{ $registrant->user->university->name }}
+                                        {{ $registrant->user->university }}
                                     </p>
                                 </div>
                                 <span class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$registrant->status) }} btn-bold">{{ config('constant.registrant_status.graduation.'.$registrant->status) }}</span>

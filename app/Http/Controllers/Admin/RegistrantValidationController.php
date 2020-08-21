@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use function foo\func;
 
-class RegistrantController extends Controller
+class RegistrantValidationController extends Controller
 {
     private $title;
     private $route;
 
     public function __construct()
     {
-        $this->title = 'Pendaftar';
-        $this->route = 'admin.registrant';
+        $this->title = 'Validasi Ujian Pendaftaran';
+        $this->route = 'admin.registrant-validation';
     }
 
     /**
@@ -40,16 +40,10 @@ class RegistrantController extends Controller
         return view($this->route.'.index', $data);
     }
 
-    /**
-     * Show list data for Datatables.
-     *
-     * @param DataTables $datatables
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
     public function table(DataTables $datatables)
     {
         $query = Registrant::select('*', 'registrants.status as status_registrant', 'registrants.id as primary')
+            ->where('status','Approve')
             ->with('user', 'university', 'requirement.period');
 
         $admin = Auth::user();
@@ -78,22 +72,20 @@ class RegistrantController extends Controller
             ->addColumn('university', static function ($data) {
                 return $data->university->name;
             })
-            ->addColumn('period', static function ($data) {
-                return $data->requirement->period->name;
-            })
             ->filterColumn('university', static function($query, $keyword) {
                 return $query->whereHas('university', static function($q) use($keyword) {
                     $q->where(DB::raw('LOWER(universities.name)'), 'like', '%'.strtolower($keyword).'%');
                 });
             })
-            ->addColumn('registered_at', function ($data) {
-                return Daster::tanggal($data->created_at, 1, true);
-            })
-            ->editColumn('status', function($data) {
-                return '<span class="btn btn-bold btn-sm btn-font-sm  btn-label-'.config('constant.registrant_status.badge.'.$data->status_registrant).'">'.config('constant.registrant_status.'.$data->status_registrant).'</span>';
-            })
-            ->filterColumn('status', static function($query, $keyword) {
-                return $query->where('registrants.status', 'like', $keyword);
+            ->addColumn('status', static function ($data) {
+                if($data->graduate=="Lulus"){
+                    $status = '<span class="badge badge-success">Lulus</span>';
+                }else if($data->graduate=="Tidak Lulus"){
+                    $status = '<span class="badge badge-danger">Tidak lulus</span>';
+                }else{
+                    $status = '<span class="badge badge-warning">Menunggu Konfirmasi</span>';
+                }
+                return $status;
             })
             ->addColumn('action', function ($data) {
 
@@ -102,7 +94,7 @@ class RegistrantController extends Controller
 
                 return $validation;
             })
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['status','action'])
             ->make(true);
     }
 
@@ -111,7 +103,7 @@ class RegistrantController extends Controller
         $registrant = Registrant::where('id', $id)->with('user', 'university', 'requirements.item')->first();
 
         $data = [
-            'title' => 'Validasi Pendaftar',
+            'title' => 'Validasi Ujian Pendaftar',
             'route' => $this->route,
             'registrant' => $registrant,
             'requirements' => $registrant->requirements
@@ -124,20 +116,18 @@ class RegistrantController extends Controller
     {
         $registrant = Registrant::where('id', $id)->with('user', 'university', 'requirements.item')->first();
 
-        foreach ($registrant->requirements as $requirement)
-        {
-            if ($request->has('validate_'.$requirement->id)) {
-                $requirement->update([
-                    'validation' => @$request->input('validate_' . $requirement->id)['checklist'] === 'on',
-                    'note' => $request->input('validate_' . $requirement->id)['note'],
-                    'validated_at' => now(),
-                    'admin_id' => Auth::user()->id
-                ]);
-            }
-        }
-
-        $registrant->status = $request->result === 'on' ? 'Approve' : 'Reject';
+        //set graduate pendaftaran
+        $registrant->graduate = $request->input('graduate');
         $registrant->save();
+
+        //set nim
+        $user = User::where('id',$registrant->user->id)->first();
+        if($registrant->graduate=="Lulus"){
+            $user->nim = $request->input('nim');
+        }else{
+            $user->nim = null;
+        }
+        $user->save();
 
         return response()->json(['success' => true, 'message' => 'Berhasil disimpan']);
     }
