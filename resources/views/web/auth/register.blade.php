@@ -91,7 +91,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label>Asal Universitas</label>
-                                <input class="form-control mt-0" type="text" required placeholder="Asal Universitas" name="universitas" value="{{ old('universitas') }}" autocomplete="off">
+                                <input class="form-control mt-0" type="text" required placeholder="Asal Universitas" name="university" value="{{ old('university') }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">
                                 <label>Nama Lengkap</label>
