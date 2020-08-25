@@ -21,27 +21,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-xl-3 col-lg-3 col-form-label">NPA IDI</label>
+                        <div class="col-lg-9 col-xl-6">
+                            <p class="form-control-plaintext">: {{ $user->npa }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-xl-3 col-lg-3 col-form-label">Asal FK</label>
                         <div class="col-lg-9 col-xl-6">
-                            <p class="form-control-plaintext">: {{ $user->university->name }}</p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Tahun Ajaran Masuk</label>
-                        <div class="col-lg-9 col-xl-6">
-                            <p class="form-control-plaintext">: {{ $user->year }}</p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Semester</label>
-                        <div class="col-lg-9 col-xl-6">
-                            <p class="form-control-plaintext">: {{ $user->semester }}</p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">Tahap Kompetensi</label>
-                        <div class="col-lg-9 col-xl-6">
-                            <p class="form-control-plaintext">: {{ config('constant.tahap_kompetensi.'.$user->competency) }}</p>
+                            <p class="form-control-plaintext">: {{ $user->university }}</p>
                         </div>
                     </div>
                     <div class="form-group row">
