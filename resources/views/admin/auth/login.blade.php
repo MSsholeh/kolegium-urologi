@@ -38,7 +38,7 @@
             <div class="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside" style="background-image: url({{ asset('assets') }}/media/bg/bg-4.jpg);">
                 <div class="kt-grid__item">
                     <a href="#" class="kt-login__logo">
-                        <img src="{{ asset('assets') }}/media/logo/logo-kui-putih.png" width="300px" height="85px">
+                        <img src="{{ asset('assets') }}/media/logo/logo-kui-putih.png" width="250px" height="70px">
                     </a>
                 </div>
                 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
