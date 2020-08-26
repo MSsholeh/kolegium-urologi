@@ -146,19 +146,21 @@
                                     <p class="text-center">Belum ada pendaftar</p>
                                 @endif
                                 @foreach($exam->registrant as $registrant)
-                                    <div class="kt-widget4">
-                                        <div class="kt-widget4__item">
-                                            <div class="kt-widget4__info">
-                                    <span class="kt-widget4__username">
-                                        {{ $registrant->user->name }}
-                                    </span>
-                                                <p class="kt-widget4__text">
-                                                    {{ $registrant->user->university->name }}
-                                                </p>
+                                    @if($registrant->participate->graduate == 'Lulus')
+                                        <div class="kt-widget4">
+                                            <div class="kt-widget4__item">
+                                                <div class="kt-widget4__info">
+                                                <span class="kt-widget4__username">
+                                                    {{ $registrant->user->name }}
+                                                </span>
+                                                    <p class="kt-widget4__text">
+                                                        {{ $registrant->user->university }}
+                                                    </p>
+                                                </div>
+                                                <span class="btn btn-sm btn-label-{{ config('constant.exam_status.badge.'.$registrant->participate->graduate) }} btn-bold">{{ $registrant->participate->graduate }}</span>
                                             </div>
-                                            <span class="btn btn-sm btn-label-{{ config('constant.exam_status.badge.'.$registrant->participate->graduate) }} btn-bold">{{ $registrant->participate->graduate }}</span>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
@@ -187,19 +189,21 @@
                             <p class="text-center">Belum ada pendaftar</p>
                         @endif
                         @foreach($university->registrant as $registrant)
-                        <div class="kt-widget4">
-                            <div class="kt-widget4__item">
-                                <div class="kt-widget4__info">
-                                    <span class="kt-widget4__username">
-                                        {{ $registrant->user->name }}
-                                    </span>
-                                    <p class="kt-widget4__text">
-                                        {{ $registrant->user->university }}
-                                    </p>
+                            @if($registrant->status == 'Approve')
+                                <div class="kt-widget4">
+                                    <div class="kt-widget4__item">
+                                        <div class="kt-widget4__info">
+                                            <span class="kt-widget4__username">
+                                                {{ $registrant->user->name }}
+                                            </span>
+                                            <p class="kt-widget4__text">
+                                                {{ $registrant->user->university }}
+                                            </p>
+                                        </div>
+                                        <span class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$registrant->status) }} btn-bold">{{ config('constant.registrant_status.graduation.'.$registrant->status) }}</span>
+                                    </div>
                                 </div>
-                                <span class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$registrant->status) }} btn-bold">{{ config('constant.registrant_status.graduation.'.$registrant->status) }}</span>
-                            </div>
-                        </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
