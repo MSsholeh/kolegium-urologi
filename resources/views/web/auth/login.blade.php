@@ -29,6 +29,34 @@
 <!-- begin::Body -->
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
 
+<div class="container">
+    <nav class="navbar navbar-expand-sm fixed-top bg-dark navbar-dark">
+      <a class="navbar-brand" style="padding-left: 10px;">
+        <img src="{{ asset('assets') }}/media/logo/logo-light.png" width="190" height="50" class="d-inline-block align-top" alt="">
+      </a>
+
+      <ul class="navbar-nav ml-auto" style="margin-right:20px">
+        <li class="nav-item">
+          <a class="nav-link" href="https://kolegium-urologi.id">Website</a>
+        </li>
+        @if(Auth::check())
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            <span class="kt-badge kt-badge--username kt-badge--unified-light kt-badge--lg kt-badge--rounded kt-badge--bold">{{ substr(auth()->user()->name, 0, 1) }}</span>
+            Hi, {{ auth()->user()->name }}
+          </a>
+          <div class="dropdown-menu">
+              <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button type="submit" target="_blank" class="dropdown-item">Keluar</button>
+               </form>
+          </div>
+        </li>
+        @endif
+      </ul>
+    </nav>
+</div>
+
 <!-- begin:: Page -->
 <div class="kt-grid kt-grid--ver kt-grid--root">
     <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v1" id="kt_login">
@@ -56,7 +84,7 @@
                         <form class="kt-form" action="{{ route('web.login') }}" method="POST" novalidate="novalidate" id="kt_login_form">
                             @csrf
                             <div class="form-group">
-                                <input class="form-control" type="email" placeholder="Email" name="email" autocomplete="off">
+                                <input class="form-control" type="text" placeholder="NPA IDI or Email" name="npa" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="password" placeholder="Password" name="password" autocomplete="off">
@@ -64,9 +92,9 @@
 
                             <!--begin::Action-->
                             <div class="kt-login__actions">
-                                <a href="{{ route('web.password.request') }}" class="kt-link kt-login__link-forgot">
-                                    Lupa Password?
-                                </a>
+                                <span class="">
+                                    Belum Punya Akun?<br><a class="kt-link" href="{{url('/register')}}">Daftar Akun</a><br><a class="kt-link" href="{{url('/password/reset')}}">Lupa password</a>
+                                </span>
                                 <button id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary">Masuk</button>
                             </div>
 
@@ -121,7 +149,7 @@
     };
 
     let baseUrl = '{{ url('/') }}';
-    let homeUrl = '{{ route('web.dashboard.home') }}';
+    let homeUrl = '{{ route('web.registration.index') }}';
 </script>
 
 <!-- end::Global Config -->

@@ -95,6 +95,7 @@ class ExamParticipantController extends Controller
         ]);
 
         $exam->participants()->create([
+            'registrant_id' => $request->registrant_id,
             'registrant_graduation_id' => $request->registrant_id,
             'description' => $request->description
         ]);

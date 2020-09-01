@@ -25,6 +25,33 @@ class SelectController extends Controller
         return response()->json([ 'items' => $data->get() ]);
     }
 
+    public function userUniversitas(Request $request, $university)
+    {
+        $data = Registrant::where('registrants.university_id', $university)
+            ->join('users', 'users.id', 'registrants.user_id')
+            ->join('universities','universities.id','registrants.university_id')
+            ->where('status', 'Approve')
+            ->where('graduate', 'Lulus')
+        ->select('registrants.id', DB::raw("CONCAT(users.npa, ' - ', users.name, ', ',universities.name) as text"));
+
+        if ($request->keyword) $data->where('name', 'like', '%'.$request->keyword.'%');
+
+        return response()->json([ 'items' => $data->get() ]);
+    }
+
+    public function userAdmin(Request $request)
+    {
+        $data = Registrant::join('users', 'users.id', 'registrants.user_id')
+            ->join('universities','universities.id','registrants.university_id')
+            ->where('status', 'Approve')
+            ->where('graduate', 'Lulus')
+        ->select('registrants.id', DB::raw("CONCAT(users.npa, ' - ', users.name, ', ',universities.name) as text"));
+
+        if ($request->keyword) $data->where('name', 'like', '%'.$request->keyword.'%');
+
+        return response()->json([ 'items' => $data->get() ]);
+    }
+
     public function university(Request $request)
     {
         $data = University::select('id', 'name as text')

@@ -8,11 +8,10 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-
-    protected $redirectTo = '/dashboard';
 
     public function __construct()
     {
@@ -36,5 +35,13 @@ class LoginController extends Controller
         }
 
         return redirect()->route('web.dashboard.home');
+    }
+
+    public function username()
+    {
+        $login = request()->input('npa');
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'npa';
+        request()->merge([$field => $login]);
+        return $field;
     }
 }

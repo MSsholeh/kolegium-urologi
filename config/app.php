@@ -175,6 +175,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Novay\WordTemplate\WordTemplateServiceProvider::class,
+        Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -244,6 +245,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Daster' => App\Helpers\Daster::class,
         'WordTemplate' => Novay\WordTemplate\Facade::class,
+        'Captcha' => Buzz\LaravelGoogleCaptcha\CaptchaFacade::class,
 
     ],
 

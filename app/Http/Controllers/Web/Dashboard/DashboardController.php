@@ -3,11 +3,6 @@
 namespace App\Http\Controllers\Web\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\CourseParticipant;
-use App\Models\ExamParticipant;
-use App\Models\Registrant;
-use App\Models\Requirement;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,41 +10,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $graduation = App\Models\RegistrantGraduation::where('user_id',auth()->user()->id)->where('status','Approve')->first();
 
-        $data = [
-            'title' => 'Dashboard',
-            'breadcrumbs' => ['Home' => route('web.home'), 'Dashboard'],
-            'user' => $user,
-            'registrants' => $user->registrants()->with('university', 'requirement')->get(),
-//            'submission' => $user->registrants()->count(),
-//            'registered' => $user->registrants()->where('status', 'Approve')->first(),
-//            'progress' => $user->registrants()->where('status', 'Request')->first(),
-//            'requirements' => Requirement::where('status', 'Active')->with(['university', 'registrants' => static function($query) use($user) { $query->where('user_id', $user->id); }])->paginate(10)
-        ];
+        if(!empty($graduation)) { $lulus = App\Models\ExamParticipant::where('registrant_graduation_id', $graduation->id)->where('graduate','Lulus')->first(); }
 
-        return view('web.dashboard.index', $data);
-    }
-
-    public function detail($id)
-    {
-        $data = [
-            'title' => 'Status Pendaftaran',
-            'breadcrumbs' => ['Home' => route('web.home'), 'Dashboard' => route('web.dashboard.home'), 'Status Pendaftaran'],
-            'registrant' => Registrant::where('id', $id)->with('requirements.item')->first()
-        ];
-
-        return view('web.dashboard.detail', $data);
-    }
-
-    public function profile()
-    {
-        $data = [
-            'title' => 'Profile',
-            'breadcrumbs' => ['Home' => route('web.home'), 'Dashboard' => route('web.dashboard.home'), 'Profile'],
-            'user' => Auth::user()
-        ];
-
-        return view('web.dashboard.profile', $data);
+        if(!empty($lulus)){
+            return redirect('certificate');
+        }else{
+            return redirect('registration');
+        }
     }
 }

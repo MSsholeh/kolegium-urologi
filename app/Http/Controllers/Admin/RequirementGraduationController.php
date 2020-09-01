@@ -48,18 +48,10 @@ class RequirementGraduationController extends Controller
      */
     public function table(DataTables $datatables)
     {
-        $query = RequirementGraduation::select('*')->with('admin', 'university', 'period');
-
-        $admin = Auth::user();
-        if ($admin->isAdminUniversity()) {
-           $query->where('university_id', $admin->university_id);
-        }
+        $query = RequirementGraduation::select('*')->with('admin', 'period');
 
         return $datatables->eloquent($query)
             ->addIndexColumn()
-            ->addColumn('university', function ($data) {
-                return $data->university->name ?? '';
-            })
             ->addColumn('period', function ($data) {
                 return $data->period->name;
             })
@@ -106,14 +98,12 @@ class RequirementGraduationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'university_id' => 'required',
             'period_id' => 'required',
             'requirements' => 'required',
             'note' => 'required'
         ]);
 
         $requirement = new RequirementGraduation;
-        $requirement->university_id = $request->university_id;
         $requirement->admin_id = Auth::user()->id;
         $requirement->note = $request->note;
         $requirement->period_id = $request->period_id;
@@ -180,9 +170,6 @@ class RequirementGraduationController extends Controller
 
         $requirement=RequirementGraduation::whereid($request->id)->firstOrFail();
 
-        if ($request->has('university_id')) {
-            $requirement->university_id = $request->university_id;
-        }
         $requirement->note = $request->note;
         $requirement->save();
 
@@ -239,7 +226,7 @@ class RequirementGraduationController extends Controller
         if ($requirement->status === 'Active') {
             $requirement->status = 'Inactive';
         } else {
-            RequirementGraduation::where(['university_id' => $requirement->university->id, 'period_id' => $requirement->period_id])->update(['status' => 'Inactive']);
+            RequirementGraduation::where(['period_id' => $requirement->period_id])->update(['status' => 'Inactive']);
             $requirement->status = 'Active';
         }
         $requirement->save();

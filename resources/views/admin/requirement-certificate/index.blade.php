@@ -74,6 +74,7 @@
                             <tr>
                                 <th width="35px">No</th>
                                 <th>Judul</th>
+                                <th>Type</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Admin</th>
                                 <th width="120px">Aksi</th>
@@ -98,6 +99,7 @@
                 columns: [
                     { data: 'DT_RowIndex', searchable: false, orderable: false, className: 'dt-center' },
                     { data: 'note' },
+                    { data: 'type' },
                     { data: 'created_at' },
                     { data: 'admin' },
                     { data: 'action', searchable: false, orderable: false, className: 'dt-center' },

@@ -2,103 +2,133 @@
 
 @section('content')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/support-center/faq.css') }}">
+<div class="kt-grid kt-grid--ver kt-grid--root" id="kt_content" style="margin-top:70px">
+    <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v1" id="kt_login">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
 
-    <!-- begin:: Content Head -->
-    <div class="kt-subheader  kt-grid__item" id="kt_subheader">
-        <div class="kt-container  kt-container--fluid ">
-            <div class="kt-subheader__main">
-                <h3 class="kt-subheader__title">{{ $title }}</h3>
-                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                <span class="kt-subheader__desc"></span>
+            <!--begin::Content-->
+            <div class="kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper">
 
-                {!! Daster::breadcrumb($breadcrumbs) !!}
-
-            </div>
-
-            <div class="kt-subheader__toolbar">
-                <div class="kt-subheader__wrapper">
-                    <span class="btn kt-subheader__btn-secondary">{{ Daster::tanggal(now(), 2) }}</span>
+                <!--begin::Head-->
+                <div class="kt-login__head">
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- end:: Content Head -->
+                <!--end::Head-->
 
-    <div class="kt-container  kt-grid__item kt-grid__item--fluid">
+                <!--begin::Body-->
+                <div class="kt-login__body">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="kt-portlet kt-portlet--height-fluid">
-                    <div class="kt-portlet__body">
-                        <div class="kt-infobox">
-                            <div class="kt-infobox__header">
-                                <h2 class="kt-infobox__title">Pengajuan Sertifikat</h2>
-                            </div>
-                            <div class="kt-infobox__body">
-                                @if($registered)
-                                    <div class="alert alert-solid-info alert-bold" role="alert">
-                                        <div class="alert-text">Anda telah melakukan pengajuan sertifikat.</div>
-                                    </div>
-                                @endif
+                    <!--begin::Signin-->
+                    <div class="kt-login__form">
 
-                                <div class="kt-widget11">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th style="width:1%"></th>
-                                                <th style="width:44%">Deskripsi</th>
-                                                <th style="width:25%">Tanggal Pembukaan</th>
-                                                <th>Pendaftaran</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                        <div class="kt-login__title">
+                            <h3>Pengajuan Sertifikat</h3>
+                        </div>
 
-                                            @if( ! $certificates)
-                                                <tr>
-                                                    <td colspan="5" class="text-center">Belum ada Pendaftaran</td>
-                                                </tr>
-                                            @else
-
-                                            @foreach($certificates as $certificate)
-                                                <tr>
-                                                    <td>
-                                                        {{ $loop->iteration }}.
-                                                    </td>
-                                                    <td>{{ $certificate->note }}</td>
-                                                    <td>{{ Daster::tanggal($certificate->created_at) }}</td>
-                                                    <td>
-                                                        @if($registered)
-                                                            <span class="btn btn-sm btn-label-success btn-bold">Telah Terdaftar</span>
-                                                        @elseif($progress)
-                                                            <span class="btn btn-sm btn-label-warning btn-bold">Dalam Proses</span>
-                                                        @elseif(!$registered && !$progress)
-                                                        <a href="{{ route('web.certificate.register', $certificate->id) }}" class="kt-link kt-link--brand kt-font-bolder shoot">
-                                                            Daftar
-                                                        </a>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            @endif
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <!--end::Widget 11-->
-
+                        <div class="stepwizard">
+                            <div class="stepwizard-row">
+                              <div class="stepwizard-step">
+                                <a href="{{route('web.profile.index')}}" type="button" class="btn btn-dark btn-circle" style="color:white">1</a>
+                                <p>Data Akun</p>
+                              </div>
+                              <div class="stepwizard-step ">
+                                <a href="{{route('web.registration.index')}}" type="button" class="btn btn-dark btn-circle" style="color:white">2</a>
+                                <p>Pendaftaran PPDS</p>
+                              </div>
+                              <div class="stepwizard-step ">
+                                <a href="{{route('web.certificate.index')}}" type="button" class="btn btn-primary btn-circle" style="color:white">3</a>
+                                <p>Pengajuan Sertifikat</p>
+                              </div>
                             </div>
                         </div>
+
+                        @if ($errors->any())
+                            <br>
+                            <div class="alert alert-danger">
+                                <ul style="margin-bottom: 0; padding-left: 5px;">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form class="kt-form" action="{{route('web.certificate.register')}}" method="POST">
+                            @csrf
+                            <div class="form-group mt-3">
+                                <label>Tipe Pengajuan Sertifikat<span style="color:red">*</span></label>
+                                <select name="certificate_type" class="select2-certificate">
+                                </select>
+                                <span class="form-text text-muted"></span>
+                            </div><br>
+
+                            <div class="kt-login__actions">
+                                <button type="submit" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary">Lanjut</button>
+                            </div>
+                        </form>
+
+                        <h4 class="font-weight-bold mt-4">Riwayat Pengajuan Sertifikat</h4>
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Tipe</th>
+                                <th>Tanggal Daftar</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @if(!$certificates)
+                                    <tr>
+                                        <td colspan="3" class="text-center">Belum ada Pengajuan</td>
+                                    </tr>
+                                @endif
+                                @foreach($certificates as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}.</td>
+                                        <td>Pengajuan {{ $item->requirement_certificate->type }}</td>
+                                        <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                          </table>
+
+                        <!--end::Form-->
                     </div>
+
+                    <!--end::Signin-->
                 </div>
+
+                <!--end::Body-->
             </div>
 
+            <!--end::Content-->
         </div>
-
     </div>
+</div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        $(function(){
+            Daster.select2('.select2-certificate', {
+                url: '{{ route('web.select.certificate') }}',
+                placeholder: 'Pilih Tipe Pengajuan',
+                minimumInputLength: 0
+            });
+
+
+        })
+    </script>
+    <script>
+        $(function(){
+            $('[data-switch=true]').bootstrapSwitch();
+
+            Daster.initValidate("#form-certificate", {
+                rules: {},
+                contentReload: "{{ route('web.certificate.index') }}"
+            });
+
+        });
+    </script>
+@endpush

@@ -44,7 +44,7 @@
                         <form class="kt-form kt-form--fit kt-margin-b-20 hidden" id="kt_filter" style="display: none;">
                             <div class="row kt-margin-b-20">
                                 <div class="col-lg-12 kt-margin-b-10-tablet-and-mobile">
-                                    <label>Universitas</label>
+                                    <label>Judul</label>
                                     <input type="text" class="form-control kt-input" placeholder="Judul" data-col-index="1">
                                 </div>
                             </div>
@@ -73,7 +73,6 @@
                             <thead>
                             <tr>
                                 <th width="35px">No</th>
-                                <th>Universitas</th>
                                 <th>Note</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Periode</th>
@@ -99,7 +98,6 @@
                 url: '{{ route($route.'.table') }}',
                 columns: [
                     { data: 'DT_RowIndex', searchable: false, orderable: false, className: 'dt-center' },
-                    { data: 'university' },
                     { data: 'note' },
                     { data: 'created_at' },
                     { data: 'period', name: 'period.name' },

@@ -9,18 +9,6 @@
         <div class="kt-portlet__body">
             <div class="kt-section">
                 <div class="kt-section__content">
-                    @if(auth()->user()->can('Persyaratan Ujian: Lihat Semua'))
-                    <div class="form-group row">
-                        <div class="col-lg-12">
-                            <label class="form-control-label">Universitas <span class="kt-font-danger">*</span> :</label>
-                            <select name="university_id" class="select2-university">
-                            </select>
-                            <span class="form-text text-muted"></span>
-                        </div>
-                    </div>
-                    @else
-                        <input type="hidden" name="university_id" value="{{ auth()->user()->university_id }}">
-                    @endif
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <label class="form-control-label">Periode <span class="kt-font-danger">*</span> :</label>
@@ -146,12 +134,6 @@
         });
 
         $('[data-switch=true]').bootstrapSwitch();
-
-        Daster.select2('.select2-university', {
-            url: '{{ route('admin.select.university') }}',
-            placeholder: 'Pilih Universitas',
-            minimumInputLength: 0
-        });
 
         Daster.select2('.select2-periode', {
             url: '{{ route('admin.select.period') }}',

@@ -22,6 +22,9 @@ Route::middleware('auth:admin')->group(static function () {
     Route::prefix('select')->name('select.')->group(static function() {
         Route::get('period/{type?}', 'SelectController@period')->name('period');
         Route::get('university', 'SelectController@university')->name('university');
+        Route::get('useradmin', 'SelectController@userAdmin')->name('useradmin');
+        Route::get('useruniversitas/{university_id}', 'SelectController@userUniversitas')->name('useruniversitas');
+        Route::get('university', 'SelectController@university')->name('university');
         Route::get('registrant/{university_id}', 'SelectController@registrant')->name('registrant');
         Route::get('registrant-graduation/{university_id}', 'SelectController@registrant_graduation')->name('graduation');
     });
@@ -80,7 +83,7 @@ Route::middleware('auth:admin')->group(static function () {
         Route::post('{registrant_graduation}/validation', 'RegistrantGraduationController@store')->name('store');
         Route::get('table', 'RegistrantGraduationController@table')->name('table');
     });
-    Route::resource('registrant-graduation', 'RegistrantGraduationController')->except(['store']);
+    Route::resource('registrant-graduation', 'RegistrantGraduationController');
 
     Route::prefix('registrant-certificate')->name('registrant-certificate.')->group(static function() {
         Route::get('{registrant_certificate}/validation', 'RegistrantCertificateController@validation')->name('validation');

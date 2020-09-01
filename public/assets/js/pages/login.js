@@ -150,7 +150,7 @@ var DasterLogin = function () {
           KTApp.unprogress(btn[0]);
 
           if (response.status === 422) {
-            showErrorMsg(form, 'danger', 'Incorrect username or password. Please try again.');
+            showErrorMsg(form, 'danger', 'Incorrect NPA IDI or password. Please try again.');
           } else {
             showErrorMsg(form, 'danger', 'Something Error!');
           }

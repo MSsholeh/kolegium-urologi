@@ -18,6 +18,10 @@
                         <i class="la la-search"></i>
                         Filter
                     </button>
+                    <a href="{{ route($route.'.create') }}" class="btn btn-bold btn-twitter btn-sm btn-icon-h kt-margin-l-10 shoot-modal">
+                        <i class="flaticon2-plus"></i>
+                        Tambah
+                    </a>
                 </div>
             </div>
         </div>
@@ -42,10 +46,6 @@
                                 <div class="col-lg-12 kt-margin-b-10">
                                     <label>Nama Pendaftar ujian Nasioonal</label>
                                     <input type="text" class="form-control kt-input" placeholder="Nama Pendaftar" data-col-index="1">
-                                </div>
-                                <div class="col-lg-4 kt-margin-b-10">
-                                    <label>Universitas</label>
-                                    <input type="text" class="form-control kt-input" placeholder="Nama Universitas" data-col-index="3">
                                 </div>
                                 <div class="col-lg-4 kt-margin-b-10">
                                     <label>Periode</label>

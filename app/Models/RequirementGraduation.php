@@ -14,11 +14,6 @@ class RequirementGraduation extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function university(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(University::class);
-    }
-
     public function items(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(RequirementGraduationItems::class);

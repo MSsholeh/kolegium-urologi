@@ -3,19 +3,46 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Period;
 use App\Models\Requirement;
-use App\Models\University;
+use App\Models\Registrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
-    public function register(Requirement $requirement)
+    public function index()
     {
+        $user = Auth::user();
+        $period = Period::registration()->latest('ended_at')->first();
+
         $data = [
-            'title' => 'Pendaftaran',
+            'submission' => $user->registrants()->count(),
+            'graduated' => $user->registrants()->where('status', 'Approve')->where('status','Lulus')->first(),
+            'registered' => $user->registrants()->where('status', 'Approve')->first(),
+            'progress' => $user->registrants()->where('status', 'Request')->first(),
+            'rejected' => $user->registrants()->where('status', 'Reject')->get(),
+            'registrants' => $user->registrants()->with('university', 'requirement')->get(),
+        ];
+
+        return view('web.registration.index', $data);
+    }
+
+    public function register(Request $request)
+    {
+        $id = $request->university_id;
+
+        return redirect()->route('web.registration.registration', ['requirement' => $id]);
+    }
+
+    public function registration(Requirement $requirement)
+    {
+        $check = Registrant::where('user_id', Auth::user()->id)->where('requirement_id',$requirement->id)->where('status','Request')->latest()->first();
+        if(!empty($check)){
+            return redirect()->route('web.registration.index');
+        }
+        $data = [
             'requirement' => $requirement,
-            'breadcrumbs' => ['Home', 'Jadwal' => route('web.schedule.index'), 'Pendaftaran']
         ];
 
         return view('web.registration.register', $data);

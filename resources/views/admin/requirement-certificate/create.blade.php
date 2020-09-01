@@ -16,6 +16,16 @@
                             <span class="form-text text-muted"></span>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <label class="form-control-label">Type <span class="kt-font-danger">*</span> :</label>
+                            <select name="type" class="form-control select-select2">
+                                <option value="Baru" selected>Pengajuan Baru</option>
+                                <option value="Ulang">Pengajuan Ulang</option>
+                            </select>
+                            <span class="form-text text-muted"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="kt-section">
