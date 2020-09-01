@@ -19,21 +19,21 @@ return [
             'permission' => 'Pengguna: Lihat'
         ],
         [
-            'name' => 'Persyaratan Pendaftaran',
+            'name' => 'Persyaratan Pendaftaran PPDS',
             'route' => 'admin.requirement.index',
             'active' => 'admin.requirement.*',
             'icon' => 'block',
             'permission' => 'Persyaratan: Lihat, Tambah, Ubah, Hapus'
         ],
         [
-            'name' => 'Pendaftar',
+            'name' => 'Pendaftaran PPDS',
             'route' => 'admin.registrant.index',
             'active' => 'admin.registrant.*',
             'icon' => 'block',
             'permission' => 'Pendaftar: Lihat'
         ],
         [
-            'name' => 'Validasi Ujian Pendaftaran',
+            'name' => 'Validasi Ujian Pendaftaran PPDS',
             'route' => 'admin.registrant-validation.index',
             'active' => 'admin.registrant-validation*',
             'icon' => 'block',
@@ -47,14 +47,14 @@ return [
             'permission' => 'Persyaratan Ujian: Lihat, Tambah, Ubah, Hapus'
         ],
         [
-            'name' => 'Pendaftar Ujian Nasional',
+            'name' => 'Pendaftaran Ujian Nasional',
             'route' => 'admin.registrant-graduation.index',
             'active' => 'admin.registrant-graduation.*',
             'icon' => 'block',
             'permission' => 'Pendaftar Ujian: Lihat'
         ],
                 [
-            'name' => 'Jadwal Ujian',
+            'name' => 'Jadwal Ujian Nasional',
             'route' => 'admin.exam.index',
             'active' => 'admin.exam*',
             'icon' => 'block',

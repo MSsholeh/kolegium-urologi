@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\RequirementGraduation;
+use App\Models\RegistrantGraduation;
+use App\Models\Registrant;
 use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +27,8 @@ class RegistrationGraduationController extends Controller
     {
         $rules = [];
         $message = [];
-        $universityRequirements = $requirement->items;
-        foreach ($universityRequirements as $item)
+        $requirements = $requirement->items;
+        foreach ($requirements as $item)
         {
             $rule = [];
 
@@ -50,22 +52,23 @@ class RegistrationGraduationController extends Controller
 
         $user = Auth::user();
 
-        $university = $requirement->university;
+        $university = Registrant::where('user_id',$user->id)->first();
 
-        $registrant = $university->registrant_graduation()->create([
+        $registrant = RegistrantGraduation::create([
             'user_id' => $user->id,
+            'university_id' => $university->university_id,
             'requirement_graduation_id' => $requirement->id,
             'status' => 'Request'
         ]);
 
         $items = [];
-        foreach ($universityRequirements as $item)
+        foreach ($requirements as $item)
         {
             $field = 'requirement_'.$item->id;
 
             if (($item->type === 'File') && $request->hasFile($field)) {
 
-                $value = $request->file('requirement_'.$item->id)->store('requirement/'.$university->id.'/'.$user->id, 'local');
+                $value = $request->file('requirement_'.$item->id)->store('requirement/'.$university->university_id.'/'.$user->id, 'local');
 
             } else if ($item->type === 'Checkbox' && $request->has('requirement_'.$item->id)) {
 

@@ -19,52 +19,36 @@ Route::get('/', 'HomeController@index');
 Route::get('file/{path}', 'FileController@get')->name('file')->where(['path' => '.*']);
 
 Route::prefix('select')->name('select.')->group(static function() {
+    Route::get('period', 'SelectController@period')->name('period');
     Route::get('university', 'SelectController@university')->name('university');
+    Route::get('certificate', 'SelectController@certificate')->name('certificate');
 });
 
-Route::prefix('schedule')->name('schedule.')->middleware('auth:web')->group(static function () {
-    Route::get('/', 'ScheduleController@index')->name('index');
-    Route::prefix('{requirement}')->group(static function(){
-        Route::get('show', 'ScheduleController@show')->name('show');
-    });
-    Route::post('register', 'ScheduleController@store')->name('store');
+Route::prefix('registration')->name('registration.')->middleware('auth:web')->group(static function () {
+    Route::get('/', 'RegistrationController@index')->name('index');
+    Route::post('register', 'RegistrationController@register')->name('register');
+    Route::get('{requirement}/register', 'RegistrationController@registration')->name('registration');
+    Route::post('{requirement}/register', 'RegistrationController@store')->name('store');
 });
 
-Route::prefix('graduation')->name('graduation.')->middleware('auth:web')->group(static function () {
-    Route::get('/', 'GraduationController@index')->name('index');
-    Route::post('register', 'GraduationController@store')->name('store');
+Route::prefix('profile')->name('profile.')->middleware('auth:web')->group(static function () {
+    Route::get('/', 'UserController@index')->name('index');
+    Route::post('update', 'UserController@update')->name('update');
 });
 
 Route::prefix('certificate')->name('certificate.')->middleware('auth:web')->group(static function () {
     Route::get('/', 'CertificateController@index')->name('index');
+    Route::post('register', 'CertificateController@register')->name('register');
 });
 
 Route::prefix('certificate/{requirement}')->name('certificate.')->group(static function () {
-    Route::get('register', 'CertificateController@register')->name('register');
     Route::post('register', 'CertificateController@store')->name('store');
 });
 
-Route::prefix('dashboard')->name('dashboard.')->namespace('Dashboard')
-    ->middleware('auth:web')
-    ->group(static function(){
+Route::get('change-password', 'ChangePasswordController@index');
+Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
 
-        Route::get('profile', 'DashboardController@profile')->name('profile');
-
-        Route::get('/', 'DashboardController@index')->name('home');
-        Route::get('{registrant}/detail', 'DashboardController@detail')->name('detail');
-    });
-
-Route::prefix('registration/{requirement}')->name('registration.')->group(static function () {
-    Route::get('register', 'RegistrationController@register')->name('register');
-    Route::post('register', 'RegistrationController@store')->name('store');
-});
-
-Route::prefix('registration-graduation/{requirement}')->name('registration-graduation.')->group(static function () {
-    Route::get('register', 'RegistrationGraduationController@register')->name('register');
-    Route::post('register', 'RegistrationGraduationController@store')->name('store');
-});
-Route::get('registration-graduation', 'RegistrationGraduationController@index')->name('registration-graduation.index');
-
+Route::prefix('dashboard')->name('dashboard.')->namespace('Dashboard')->middleware('auth:web');
 
 Auth::routes();
 

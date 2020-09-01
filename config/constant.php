@@ -12,15 +12,18 @@ return [
     'registrant_status' => [
         'Request' => 'Pengajuan Baru',
         'Approve' => 'Lolos Persyaratan',
+        'Lulus' => 'Lulus Pendafataran',
         'Reject' => 'Tidak Lolos Persyaratan',
         'badge' => [
             'Request' => 'warning',
-            'Approve' => 'success',
+            'Approve' => 'primary',
+            'Lulus' => 'success',
             'Reject' => 'danger'
         ],
         'graduation' => [
             'Request' => 'Penilaian Persyaratan',
             'Approve' => 'Lolos Persyaratan',
+            'Lulus' => 'Lulus Pendafataran',
             'Reject' => 'Tidak Lolos Persyaratan',
         ]
     ],

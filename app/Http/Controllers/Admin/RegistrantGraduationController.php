@@ -6,6 +6,8 @@ use App\Helpers\Daster;
 use App\Http\Controllers\Controller;
 use App\Models\Period;
 use App\Models\RegistrantGraduation;
+use App\Models\Registrant;
+use App\Models\RequirementGraduation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +38,7 @@ class RegistrantGraduationController extends Controller
             'title' => $this->title,
             'breadcrumbs' => [$this->title => route($this->route.'.index')],
             'route' => $this->route
+
         ];
 
         return view($this->route.'.index', $data);
@@ -51,7 +54,7 @@ class RegistrantGraduationController extends Controller
     public function table(DataTables $datatables)
     {
         $query = RegistrantGraduation::select('*', 'registrants_graduation.status as status_registrant', 'registrants_graduation.id as primary')
-            ->with('user', 'university', 'requirement_graduation.period');
+            ->with('user', 'university','requirement_graduation.period');
 
         $admin = Auth::user();
         if ($admin->isAdminUniversity()) {
@@ -79,13 +82,13 @@ class RegistrantGraduationController extends Controller
             ->addColumn('university', static function ($data) {
                 return $data->university->name;
             })
-            ->addColumn('period', static function ($data) {
-                return $data->requirement_graduation->period->name;
-            })
             ->filterColumn('university', static function($query, $keyword) {
                 return $query->whereHas('university', static function($q) use($keyword) {
                     $q->where(DB::raw('LOWER(universities.name)'), 'like', '%'.strtolower($keyword).'%');
                 });
+            })
+            ->addColumn('period', static function ($data) {
+                return $data->requirement_graduation->period->name;
             })
             ->addColumn('registered_at', function ($data) {
                 return Daster::tanggal($data->created_at, 1, true);
@@ -109,7 +112,7 @@ class RegistrantGraduationController extends Controller
 
     public function validation($id)
     {
-        $registrant = RegistrantGraduation::where('id', $id)->with('user', 'university', 'requirements_graduation.item')->first();
+        $registrant = RegistrantGraduation::where('id', $id)->with('user', 'requirements_graduation.item')->first();
 
         $data = [
             'title' => 'Validasi Pendaftar Ujian Nasional',
@@ -121,25 +124,86 @@ class RegistrantGraduationController extends Controller
         return view($this->route.'.validation', $data);
     }
 
-    public function store(Request $request, $id)
+    public function create()
     {
-        $registrant = RegistrantGraduation::where('id', $id)->with('user', 'university', 'requirements_graduation.item')->first();
+        $data = [
+            'title' => $this->title,
+            'breadcrumbs' => [$this->title => route($this->route.'.index')],
+            'route' => $this->route,
+            'requirement' => RequirementGraduation::where(['status' => 'Active'])->first(),
+        ];
 
-        foreach ($registrant->requirements_graduation as $requirement)
+        return view($this->route.'.create', $data);
+    }
+
+ public function store(Request $request)
+    {
+        $rules = [];
+        $message = [];
+        $requirement = RequirementGraduation::where(['status' => 'Active'])->first();
+        $universityRequirements = $requirement->items;
+        foreach ($universityRequirements as $item)
         {
-            if ($request->has('validate_'.$requirement->id)) {
-                $requirement->update([
-                    'validation' => @$request->input('validate_' . $requirement->id)['checklist'] === 'on',
-                    'note' => $request->input('validate_' . $requirement->id)['note'],
-                    'validated_at' => now(),
-                    'admin_id' => Auth::user()->id
-                ]);
+            $rule = [];
+
+            if ($item->required && $item->type !== 'Checkbox') {
+                $rule[] = 'required';
+                $message['requirement_' . $item->id.'.required'] = 'Kolom "'.$item->name.'" harus diisi.';
+            } else {
+                $rule[] = 'nullable';
+            }
+
+            if ($item->type === 'File') {
+                $rule[] = 'file';
+            }
+
+            $rules['requirement_' . $item->id] = implode('|', $rule);
+        }
+
+        $request->validate(
+            $rules, $message
+        );
+
+        $user = Registrant::where('id',$request->registrant_id)->first();
+
+        $registrant = RegistrantGraduation::create([
+            'user_id' => $user->user_id,
+            'university_id' => $user->university_id,
+            'requirement_graduation_id' => $requirement->id,
+            'status' => 'Request'
+        ]);
+
+        $items = [];
+        foreach ($universityRequirements as $item)
+        {
+            $field = 'requirement_'.$item->id;
+
+            if (($item->type === 'File') && $request->hasFile($field)) {
+
+                $value = $request->file('requirement_'.$item->id)->store('requirement/'.$user->university_id.'/'.$user->user_id, 'local');
+
+            } else if ($item->type === 'Checkbox' && $request->has('requirement_'.$item->id)) {
+
+                $value = $request->input('requirement_'.$item->id) ? true : false;
+
+            } else {
+
+                $value = $request->has('requirement_'.$item->id) ? $request->input('requirement_'.$item->id) : null;
+
+            }
+
+            if ($value) {
+                $items[] = [
+                    'requirement_graduation_item_id' => $item->id,
+                    'value' => $value
+                ];
             }
         }
 
-        $registrant->status = $request->result === 'on' ? 'Approve' : 'Reject';
-        $registrant->save();
+        $registrant->requirements_graduation()->createMany(
+            $items
+        );
 
-        return response()->json(['success' => true, 'message' => 'Berhasil disimpan']);
+        return response()->json(['success' => true, 'message' => 'Pendaftaran Ujian Nasional berhasil.']);
     }
 }

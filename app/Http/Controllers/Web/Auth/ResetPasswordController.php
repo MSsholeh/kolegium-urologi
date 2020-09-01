@@ -27,11 +27,11 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/login';
 
     public function redirectTo()
     {
-        return '/dashboard';
+        return '/login';
     }
 
     public function showResetForm(Request $request, $token = null)

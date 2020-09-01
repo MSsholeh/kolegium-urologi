@@ -17,7 +17,7 @@ class RequirementCertificateController extends Controller
 
     public function __construct()
     {
-        $this->title = 'Persyaratan Penerbitan Sertifikat';
+        $this->title = 'Persyaratan Pengajuan Sertifikat';
         $this->route = 'admin.requirement-certificate';
     }
 
@@ -94,12 +94,14 @@ class RequirementCertificateController extends Controller
     {
         $request->validate([
             'requirements' => 'required',
-            'note' => 'required'
+            'note' => 'required',
+            'type' => 'required'
         ]);
 
         $requirement = new RequirementCertificate;
         $requirement->admin_id = Auth::user()->id;
         $requirement->note = $request->note;
+        $requirement->type = $request->type;
         $requirement->save();
 
         $requirements = [];
@@ -218,7 +220,7 @@ class RequirementCertificateController extends Controller
         if ($requirement->status === 'Active') {
             $requirement->status = 'Inactive';
         } else {
-            RequirementCertificate::where(['status' => 'Active'])->update(['status' => 'Inactive']);
+            RequirementCertificate::where(['status' => 'Active', 'type' => $requirement->type ])->update(['status' => 'Inactive']);
             $requirement->status = 'Active';
         }
         $requirement->save();
