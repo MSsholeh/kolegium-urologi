@@ -129,6 +129,7 @@
                                         Data PPDS
                                     </h3>
                                     <div class="kt-section__content">
+                                        @if(auth()->user()->university_id === null)
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <label class="form-control-label">Universitas <span class="kt-font-danger">*</span> :</label>
@@ -137,6 +138,9 @@
                                                 <span class="form-text text-muted"></span>
                                             </div>
                                         </div>
+                                        @else
+                                            <input type="hidden" name="university_id" value="{{ auth()->user()->university_id }}">
+                                        @endif
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <label class="form-control-label">Tahun Masuk<span class="kt-font-danger">*</span> :</label>
