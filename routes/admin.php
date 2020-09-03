@@ -98,6 +98,11 @@ Route::middleware('auth:admin')->group(static function () {
     });
     Route::resource('sertifikat', 'SertifikatController')->except(['store']);
 
+    Route::prefix('resident')->name('resident.')->group(static function() {
+        Route::get('table', 'ResidentController@table')->name('table');
+    });
+    Route::resource('resident', 'ResidentController');
+
     Route::prefix('exam')->name('exam.')->group(static function() {
         Route::get('table', 'ExamScheduleController@table')->name('table');
 

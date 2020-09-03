@@ -79,7 +79,11 @@ class RegistrantController extends Controller
                 return $data->university->name;
             })
             ->addColumn('period', static function ($data) {
-                return $data->requirement->period->name;
+                if(empty($data->requirement_id)){
+                    return $data->user->tahun_masuk;
+                }else{
+                    return $data->requirement->period->name;
+                }
             })
             ->filterColumn('university', static function($query, $keyword) {
                 return $query->whereHas('university', static function($q) use($keyword) {

@@ -77,9 +77,27 @@ return [
         [
             'name' => 'Sertifikat Terbit',
             'route' => 'admin.sertifikat.index',
-            'active' => 'admin.Sertifikat.*',
+            'active' => 'admin.sertifikat.*',
             'icon' => 'block',
             'permission' => 'Sertifikat: Lihat, Download'
+        ],
+        [
+            'name' => 'Database',
+            'permission' => 'Resident: Lihat'
+        ],
+        [
+            'name' => 'Input Database Resident',
+            'route' => 'admin.resident.create',
+            'active' => 'admin.resident.create',
+            'icon' => 'block',
+            'permission' => 'Resident: Tambah'
+        ],
+        [
+            'name' => 'List Database Resident',
+            'route' => 'admin.resident.index',
+            'active' => 'admin.resident.index',
+            'icon' => 'block',
+            'permission' => 'Resident: Lihat'
         ],
 //        [
 //            'name' => 'Kursus',

@@ -88,7 +88,11 @@ class RegistrantGraduationController extends Controller
                 });
             })
             ->addColumn('period', static function ($data) {
-                return $data->requirement_graduation->period->name;
+                if(empty($data->requirement_id)){
+                    return $data->user->tahun_masuk;
+                }else{
+                    return $data->requirement_graduation->period->name;
+                }
             })
             ->addColumn('registered_at', function ($data) {
                 return Daster::tanggal($data->created_at, 1, true);
