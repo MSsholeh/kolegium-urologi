@@ -42,23 +42,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $resident = $query->where('registrants.university_id', $university->id);
-                                            @endphp
-
-                                            @foreach($resident as $data)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->name }}</td>
-                                                <td>
-                                                    @if(empty($data->requirement_id))
-                                                        {{$data->user->tahun_masuk}}
-                                                    @else
-                                                        {{$data->requirement->period->name}}
-                                                    @endif
-                                                </td>
-                                                <td>{{ $data->user->npa }}</td>
-                                            </tr>
+                                            @php $no=1; @endphp
+                                            @foreach($query as $data)
+                                            @if($data->university->id == $university->id)
+                                                <tr>
+                                                    <td>{{ $no }}</td>
+                                                    <td>{{ $data->user->name }}</td>
+                                                    <td>
+                                                        @if(empty($data->requirement_id))
+                                                            {{$data->user->tahun_masuk}}
+                                                        @else
+                                                            {{$data->requirement->period->name}}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $data->user->npa }}</td>
+                                                </tr>
+                                                @php $no++; @endphp
+                                            @endif
                                             @endforeach
                                         </tbody>
                                         <tfoot>
