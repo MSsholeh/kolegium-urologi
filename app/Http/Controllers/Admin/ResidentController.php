@@ -161,8 +161,7 @@ class ResidentController extends Controller
             $status_lulus = null;
         }
 
-        Session::flash('sukses','Input Database Resident Berhasil!');
         //return response()->json(['success' => true, 'message' => 'Input Database Resident Berhasil.']);
-        return redirect()->route('admin.resident.create');
+        return redirect()->back()->withSuccess('Input Database Resident Berhasil!');
     }
 }

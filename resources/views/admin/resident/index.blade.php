@@ -33,10 +33,8 @@
         <!--Begin::Row-->
         <div class="row">
             <div class="col-lg-12">
-
                 <div class="kt-portlet">
                     <div class="kt-portlet__body">
-
                         <form class="kt-form kt-form--fit kt-margin-b-20 hidden" id="kt_filter" style="display: none;">
                             <div class="row kt-margin-b-20">
                                 <div class="col-lg-4 kt-margin-b-10">
