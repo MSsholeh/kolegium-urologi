@@ -45,6 +45,10 @@ Route::prefix('certificate/{requirement}')->name('certificate.')->group(static f
     Route::post('register', 'CertificateController@store')->name('store');
 });
 
+Route::prefix('database-resident')->name('resident.')->group(static function () {
+    Route::get('/', 'ResidentController@index')->name('index');
+});
+
 Route::get('change-password', 'ChangePasswordController@index');
 Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
 
