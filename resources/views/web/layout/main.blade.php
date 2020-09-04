@@ -63,6 +63,7 @@
             display:none;
         }
     </style>
+    @stack('css')
 </head>
 
 <!-- end::Head -->
