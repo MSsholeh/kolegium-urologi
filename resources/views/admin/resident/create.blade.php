@@ -21,24 +21,29 @@
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
         <div class="row">
             <div class="col-lg-12">
-                @if ($message = Session::get('sukses'))
-				<div class="alert alert-success alert-block">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					<strong>{{ $message }}</strong>
-				</div>
-				@endif
                 <div class="kt-portlet">
                     <div class="kt-portlet__body">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         @if ($errors->any())
-                            <div class="alert alert-danger">
+                            <br>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <ul style="margin-bottom: 0; padding-left: 5px;">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                         @endif
-
                         <!--begin::Form-->
                         <form action="{{ route($route.'.store') }}" id="form-register" enctype="multipart/form-data" method="POST">
                             @csrf
@@ -186,7 +191,7 @@
                                         <div class="form-group row">
                                             <div class="col-lg-12">
                                                 <button type="reset" class="btn btn-bold btn-secondary btn-elevate">Kosongkan</button>
-                                                <button type="submit" class="btn btn-bold btn-primary btn-elevate">Simpan</button>
+                                                <button type="submit" class="btn btn-bold btn-primary btn-elevate" id="submit">Simpan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -204,11 +209,8 @@
 
 @push('scripts')
 <script type="text/javascript">
+
     $(function(){
-            Daster.initValidate("#form-register", {
-                rules: {},
-                contentReload: "{{ route('admin.resident.index') }}"
-            });
 
         $('#requirements').repeater({
             initEmpty: false,
@@ -260,6 +262,18 @@
             minimumInputLength: 0
         });
 
+    });
+    $(function(){
+        function submitForm(){
+            $.ajax({
+                complete:function(){
+                    $('body, html').animate({scrollTop:$('form').offset().top}, 'slow');
+                }
+            });
+        }
+        $('#submit').click(function(){
+            submitForm();
+        });
     });
 </script>
 @endpush
