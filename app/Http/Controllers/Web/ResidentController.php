@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Helpers\Daster;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Period;
 use App\Models\Registrant;
+use App\Models\RegistrantGraduation;
+use App\Models\ExamParticipant;
+use App\Models\User;
 use App\Models\University;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Crypt;
+use Session;
+
 
 class ResidentController extends Controller
 {
@@ -15,8 +26,7 @@ class ResidentController extends Controller
 
         $data = [
             'universities' => University::All(),
-            'query' => Registrant::select('*', 'registrants.status as status_registrant', 'registrants.id as primary')
-            ->with('user', 'university', 'requirement.period'),
+            'query' => Registrant::with('user', 'university', 'requirement.period')->get(),
         ];
 
         return view('web.resident.index', $data);
