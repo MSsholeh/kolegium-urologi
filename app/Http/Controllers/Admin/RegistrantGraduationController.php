@@ -88,7 +88,7 @@ class RegistrantGraduationController extends Controller
                 });
             })
             ->addColumn('period', static function ($data) {
-                if(empty($data->requirement_id)){
+                if(empty($data->requirement_graduation_id)){
                     return $data->user->tahun_masuk;
                 }else{
                     return $data->requirement_graduation->period->name;
