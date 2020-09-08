@@ -211,7 +211,7 @@ class RegistrantGraduationController extends Controller
         return response()->json(['success' => true, 'message' => 'Pendaftaran Ujian Nasional berhasil.']);
     }
 
-    public function validate(Request $request, $id)
+    public function verifikasi(Request $request, $id)
     {
         $registrant = RegistrantGraduation::where('id', $id)->with('user', 'university', 'requirements_graduation.item')->first();
 

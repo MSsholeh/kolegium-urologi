@@ -5,7 +5,7 @@
 </div>
 <div class="modal-body">
     <!--begin::Form-->
-    <form action="{{ route($route.'.validate', $registrant->id) }}" class="kt-form kt-form--label-right" id="form-modal"  method="POST">
+    <form action="{{ route($route.'.verifikasi', $registrant->id) }}" class="kt-form kt-form--label-right" id="form-modal"  method="POST">
         <div class="kt-portlet__body">
             <div class="kt-section">
                 <div class="kt-section__content">
