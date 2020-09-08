@@ -210,4 +210,26 @@ class RegistrantGraduationController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Pendaftaran Ujian Nasional berhasil.']);
     }
+
+    public function validate(Request $request, $id)
+    {
+        $registrant = RegistrantGraduation::where('id', $id)->with('user', 'university', 'requirements_graduation.item')->first();
+
+        foreach ($registrant->requirements_graduation as $requirement)
+        {
+            if ($request->has('validate_'.$requirement->id)) {
+                $requirement->update([
+                    'validation' => @$request->input('validate_' . $requirement->id)['checklist'] === 'on',
+                    'note' => $request->input('validate_' . $requirement->id)['note'],
+                    'validated_at' => now(),
+                    'admin_id' => Auth::user()->id
+                ]);
+            }
+        }
+
+        $registrant->status = $request->result === 'on' ? 'Approve' : 'Reject';
+        $registrant->save();
+
+        return response()->json(['success' => true, 'message' => 'Berhasil disimpan']);
+    }
 }
