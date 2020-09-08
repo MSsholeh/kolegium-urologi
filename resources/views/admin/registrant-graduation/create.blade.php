@@ -96,11 +96,6 @@
             minimumInputLength: 0
         });
 
-        Daster.select2('.select2-user-universitas', {
-            url: '{{ route('admin.select.useruniversitas', auth()->user()->university_id) }}',
-            minimumInputLength: 0
-        });
-
         $('#requirements').repeater({
             initEmpty: false,
 
@@ -134,3 +129,14 @@
 
     });
 </script>
+
+@if(auth()->user()->university_id != null)
+<script type="text/javascript">
+    $(function(){
+        Daster.select2('.select2-user-universitas', {
+            url: '{{ route('admin.select.useruniversitas', auth()->user()->university_id) }}',
+            minimumInputLength: 0
+        });
+    });
+</script>
+@endif
