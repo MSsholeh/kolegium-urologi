@@ -30,10 +30,22 @@ class CertificateController extends Controller
 
     public function register(Request $request)
     {
+        $user = Auth::user();
+
         if($request->certificate_type == 1){
             $type = "Baru";
         }elseif($request->certificate_type == 2){
             $type = "Ulang";
+        }
+
+        $check = RegistrantCertificate::where('user_id',$user->id)->orderBy('created_at', 'desc')->first();
+
+        if($request->certificate_type == 1 && !empty($user->no_sertifikat)){
+            return redirect()->back()->withErrors('Anda sudah pernah melakukan pengajuan sertifikat, silahkan melakukan pengajuan ulang!');
+        }
+
+        if($check->status = "Request"){
+            return redirect()->back()->withErrors('Anda memiliki pengajuan masih dalam proses, Anda belum bisa melakukan pengajuan sampai proses selesai');
         }
 
         $requirement = RequirementCertificate::where(['status' => 'Active', 'type' => $type])->first();

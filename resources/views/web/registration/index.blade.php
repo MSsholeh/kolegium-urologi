@@ -64,6 +64,11 @@
                             <div class="alert alert-solid-info alert-bold" role="alert">
                                 <div class="alert-text">Anda telah terdaftar di {{ $registered->university->name }}.</div>
                             </div>
+                            @if(!empty($lulus))
+                            <div class="alert alert-solid-warning alert-bold" role="alert">
+                                <div class="alert-text">Anda sudah dapat melakukan pengajuan sertifikat.</div>
+                            </div>
+                            @endif
                             <h4 class="font-weight-bold mt-4">Riwayat Pendaftaran</h4>
                               <table class="table table-striped">
                                 <thead>
@@ -199,7 +204,13 @@
                                 </tbody>
                               </table>
                         @endif
-
+                        @if(!empty($lulus))
+                            <div class="kt-login__actions">
+                                <span class="">
+                                </span>
+                                <a href="{{route('web.certificate.index')}}" type="submit" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary d-flex align-items-center">Lanjut</a>
+                            </div>
+                        @endif
 <!--
                             <h4 class="font-weight-bold mt-4">Klik checkbox captcha untuk verifikasi di bawah</h4>
                             <div class="form-group mt-3">
