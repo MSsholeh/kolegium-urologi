@@ -74,6 +74,7 @@
                                 <th>#</th>
                                 <th>Tipe</th>
                                 <th>Tanggal Daftar</th>
+                                <th>Status</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -87,6 +88,15 @@
                                         <td>{{ $loop->iteration }}.</td>
                                         <td>Pengajuan {{ $item->requirement_certificate->type }}</td>
                                         <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
+                                        <td>
+                                            @if($item->status == "Request")
+                                                <a href="#" class="btn btn-sm btn-label-warning btn-bold">Menunggu Konfirmasi</a>
+                                            @elseif($item->status == "Approve")
+                                                <a href="#" class="btn btn-sm btn-label-success btn-bold">Terbit</a>
+                                            @else
+                                                <a href="#" class="btn btn-sm btn-label-danger btn-bold">Ditolak</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
