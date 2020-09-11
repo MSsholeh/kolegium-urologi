@@ -101,8 +101,10 @@ Route::middleware('auth:admin')->group(static function () {
 
     Route::prefix('resident')->name('resident.')->group(static function() {
         Route::get('table', 'ResidentController@table')->name('table');
+        Route::get('{user_id}/kompetensi', 'ResidentController@kompetensi')->name('kompetensi');
+        Route::post('{user_id}/kompetensi', 'ResidentController@update')->name('update');
     });
-    Route::resource('resident', 'ResidentController');
+    Route::resource('resident', 'ResidentController')->except(['update']);
 
     Route::prefix('exam')->name('exam.')->group(static function() {
         Route::get('table', 'ExamScheduleController@table')->name('table');

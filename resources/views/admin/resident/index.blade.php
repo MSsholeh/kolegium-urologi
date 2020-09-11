@@ -78,7 +78,8 @@
                                 <th>Nama</th>
                                 <th>NPA IDI</th>
                                 <th>Universitas</th>
-                                <th>Tahun Masuk</th>
+                                <th>Tahap kompetensi</th>
+                                <th>Aksi</th>
                             </tr>
                             </thead>
                         </table>
@@ -103,7 +104,8 @@
                     { data: 'name', name: 'user.name' },
                     { data: 'npa', name: 'user.npa' },
                     { data: 'university', name: 'university.name' },
-                    { data: 'period', name: 'requirement.period.name' },
+                    { data: 'kompetensi', name: 'user.tahap_kompetensi' },
+                    { data: 'action', searchable: false, orderable: false, className: 'dt-center' },
                 ],
                 order: [3, 'desc']
             });
