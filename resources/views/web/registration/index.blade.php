@@ -162,6 +162,9 @@
                             <div class="alert alert-solid-danger alert-bold" role="alert">
                                 <div class="alert-text">Anda sudah tidak mempunyai kesempatan untuk mendaftar.</div>
                             </div>
+                            <div class="alert alert-solid-warning alert-bold" role="alert">
+                                <div class="alert-text">Silahkan menghubungi prodi yang dituju !</div>
+                            </div>
                             <h4 class="font-weight-bold mt-4">Riwayat Pendaftaran</h4>
                               <table class="table table-striped">
                                 <thead>
