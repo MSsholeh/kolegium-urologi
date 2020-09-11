@@ -75,16 +75,41 @@ class ResidentController extends Controller
                     $q->where(DB::raw('LOWER(universities.name)'), 'like', '%'.strtolower($keyword).'%');
                 });
             })
-            ->addColumn('period', static function ($data) {
-                if(empty($data->requirement_id)){
-                    return $data->user->tahun_masuk;
-                }else{
-                    return $data->requirement->period->name;
-                }
+            ->addColumn('kompetensi', static function ($data) {
+                return $data->user->tahap_kompetensi;
             })
+            ->addColumn('action', function ($data) {
 
-            ->rawColumns([])
+                $kompetensi = ' <a href="'.route($this->route.'.kompetensi', [$data->user->id]).'" class="btn btn-label-brand btn-icon btn-sm action-edit"  data-container="body" data-toggle="kt-tooltip" data-placement="top" title="Update Tahap Kompetensi" data-boundary="window"><i class="la la-check-circle-o"></i></a>';
+
+                return $kompetensi;
+            })
+            ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function kompetensi($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        $data = [
+            'title' => 'Update Tahap Kompetensi',
+            'route' => $this->route,
+            'user' => $user
+        ];
+
+        return view($this->route.'.kompetensi', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::where('id', $id)->first();
+
+        //set tahap kompetensi
+        $user->tahap_kompetensi = $request->input('tahap_kompetensi');
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'Berhasil disimpan']);
     }
 
     public function create()

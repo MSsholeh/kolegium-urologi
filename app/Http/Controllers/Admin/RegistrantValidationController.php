@@ -124,6 +124,7 @@ class RegistrantValidationController extends Controller
         $user = User::where('id',$registrant->user->id)->first();
         if($registrant->graduate=="Lulus"){
             $user->nim = $request->input('nim');
+            $user->tahap_kompetensi = "Tahap Pembekalan";
         }else{
             $user->nim = null;
         }

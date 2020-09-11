@@ -37,7 +37,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
-                                                <th>Tahun Masuk</th>
+                                                <th>Tahap Kompetensi</th>
                                                 <th>NPA IDI</th>
                                             </tr>
                                         </thead>
@@ -48,13 +48,7 @@
                                                 <tr>
                                                     <td>{{ $no }}</td>
                                                     <td>{{ $data->user->name }}</td>
-                                                    <td>
-                                                        @if(empty($data->requirement_id))
-                                                            {{$data->user->tahun_masuk}}
-                                                        @else
-                                                            {{$data->requirement->period->name}}
-                                                        @endif
-                                                    </td>
+                                                    <td>{{ $data->user->tahap_kompetensi }}</td>
                                                     <td>{{ $data->user->npa }}</td>
                                                 </tr>
                                                 @php $no++; @endphp
