@@ -24,7 +24,12 @@
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <label class="form-control-label">Tahap Kompetensi :</label>
-                            <input type="text" class="form-control" id="tahap_kompetensi" name="tahap_kompetensi" value="{{ $user->tahap_kompetensi }}" placeholder="Masukkan Tahap Kompetensi">
+                            <select name="tahap_kompetensi" required class="select-select2">
+                                <option value=""></option>
+                                <option value="Tahap Pembekalan">Tahap Pembekalan</option>
+                                <option value="Tahap Magang">Tahap Magang</option>
+                                <option value="Tahap Mandiri">Tahap Mandiri</option>
+                            </select>
                         </div>
                     </div>
                 </div>
