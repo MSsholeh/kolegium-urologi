@@ -76,7 +76,6 @@
                                     <th>#</th>
                                     <th>Universitas</th>
                                     <th>Tanggal Daftar</th>
-                                    <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -85,15 +84,6 @@
                                             <td>{{ $loop->iteration }}.</td>
                                             <td>{{ $item->university->name }}</td>
                                             <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
-                                            <td>
-<!--                                                <a href="#" class="btn btn-sm btn-label-warning btn-bold">Harap Menghubungi Prodi</a>-->
-
-                                                @if(empty($item->graduate))
-                                                    <a href="#" class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$item->status) }} btn-bold">{{ config('constant.registrant_status.'.$item->status) }}</a>
-                                                @else
-                                                    <a href="#" class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$item->graduate) }} btn-bold">{{ config('constant.registrant_status.'.$item->graduate) }}</a>
-                                                @endif
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -127,7 +117,6 @@
                                     <th>#</th>
                                     <th>Universitas</th>
                                     <th>Tanggal Daftar</th>
-                                    <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -136,9 +125,6 @@
                                             <td>{{ $loop->iteration }}.</td>
                                             <td>{{ $item->university->name }}</td>
                                             <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$item->status) }} btn-bold">{{ config('constant.registrant_status.'.$item->status) }}</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -159,7 +145,6 @@
                                     <th>#</th>
                                     <th>Universitas</th>
                                     <th>Tanggal Daftar</th>
-                                    <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -168,9 +153,6 @@
                                             <td>{{ $loop->iteration }}.</td>
                                             <td>{{ $item->university->name }}</td>
                                             <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$item->status) }} btn-bold">{{ config('constant.registrant_status.'.$item->status) }}</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -187,7 +169,6 @@
                                     <th>#</th>
                                     <th>Universitas</th>
                                     <th>Tanggal Daftar</th>
-                                    <th>Status</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -196,9 +177,6 @@
                                             <td>{{ $loop->iteration }}.</td>
                                             <td>{{ $item->university->name }}</td>
                                             <td>{{ Daster::tanggal($item->created_at, 1, true) }}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-label-{{ config('constant.registrant_status.badge.'.$item->status) }} btn-bold">{{ config('constant.registrant_status.'.$item->status) }}</a>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
