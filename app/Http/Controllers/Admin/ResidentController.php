@@ -42,7 +42,7 @@ class ResidentController extends Controller
     public function table(DataTables $datatables)
     {
         $query = Registrant::select('*', 'registrants.status as status_registrant', 'registrants.id as primary')
-            ->with('user', 'university', 'requirement.period');
+            ->with('user', 'university', 'requirement.period')->where('registrants.graduate', 'Lulus');
 
         $admin = Auth::user();
         if ($admin->isAdminUniversity()) {
