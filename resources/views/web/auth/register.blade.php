@@ -141,6 +141,10 @@
                             </div>
                         @endif
 
+                        <div class="alert alert-primary" role="alert">
+                            Apabila anda sudah pernah mendaftar, Silahkan <a href="{{url('/login')}}">login</a> dengan akun yang sudah pernah dibuat sebelumnya !
+                        </div>
+
                         <!--begin::Form-->
                         <form class="kt-form" action="{{ route('web.register') }}" method="POST">
                             @csrf
