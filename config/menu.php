@@ -83,21 +83,35 @@ return [
         ],
         [
             'name' => 'Database',
-            'permission' => 'Resident: Lihat'
+            'permission' => 'Database Resident: Lihat'
         ],
         [
             'name' => 'Input Database Resident',
             'route' => 'admin.resident.create',
             'active' => 'admin.resident.create',
             'icon' => 'block',
-            'permission' => 'Resident: Tambah'
+            'permission' => 'Database Resident: Tambah'
         ],
         [
             'name' => 'List Database Resident',
             'route' => 'admin.resident.index',
             'active' => 'admin.resident.index',
             'icon' => 'block',
-            'permission' => 'Resident: Lihat'
+            'permission' => 'Database Resident: Lihat'
+        ],
+        [
+            'name' => 'Input Database SPU',
+            'route' => 'admin.database-spu.create',
+            'active' => 'admin.database-spu.create',
+            'icon' => 'block',
+            'permission' => 'Database SPU: Tambah'
+        ],
+        [
+            'name' => 'List Database SPU',
+            'route' => 'admin.database-spu.index',
+            'active' => 'admin.database-spu.index',
+            'icon' => 'block',
+            'permission' => 'Database SPU: Lihat'
         ],
 //        [
 //            'name' => 'Kursus',
