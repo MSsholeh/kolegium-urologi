@@ -162,14 +162,14 @@
                                 <input class="form-control mt-0" type="password" required placeholder="Ulangi Password" name="password_confirmation" value="{{ old('password_confirmation') }}" autocomplete="off">
                             </div><br>
 
-                            <h4 class="font-weight-bold mt-4">Peserta Didik</h4>
+                            <h4 class="font-weight-bold mt-4">Informasi Pribadi</h4>
 
                             <div class="form-group mt-3">
                                 <label>Nomor KTP<span style="color:red">*</span></label>
                                 <input class="form-control mt-0" type="text" required placeholder="Nomor KTP" name="nik" value="{{ old('nik') }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">
-                                <label>NPA IDI PUSAT<span style="color:red">*</span></label>
+                                <label>NPA IDI<span style="color:red">*</span></label>
                                 <input class="form-control mt-0" type="text" required placeholder="NPA IDI PUSAT" name="npa" value="{{ old('npa') }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">

@@ -33,7 +33,7 @@
                               </div>
                               <div class="stepwizard-step ">
                                 <a href="{{route('web.registration.index')}}" hrtype="button" class="btn btn-dark btn-circle" style="color:white">2</a>
-                                <p>Pendaftaran PPDS</p>
+                                <p>Pengisian Data</p>
                               </div>
                                 @php
                                     $graduation = App\Models\RegistrantGraduation::where('user_id',auth()->user()->id)->where('status','Approve')->first();
@@ -74,14 +74,14 @@
                                 <input class="form-control mt-0" type="password" value="***************************" readonly>
                                 <br><a class="kt-link" href="{{url('/change-password')}}">Ganti Password</a>
                             </div><br>
-                            <h4 class="font-weight-bold mt-4">Peserta Didik</h4>
+                            <h4 class="font-weight-bold mt-4">Informasi Pribadi</h4>
 
                             <div class="form-group mt-3">
                                 <label>Nomor KTP<span style="color:red">*</span></label>
                                 <input class="form-control mt-0" type="text" required placeholder="Nomor KTP" name="nik" value="{{ $user->nik }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">
-                                <label>NPA IDI PUSAT<span style="color:red">*</span></label>
+                                <label>NPA IDI<span style="color:red">*</span></label>
                                 <input class="form-control mt-0" type="text" required placeholder="NPA IDI PUSAT" name="npa" value="{{ $user->npa }}" autocomplete="off">
                             </div>
                             <div class="form-group mt-3">

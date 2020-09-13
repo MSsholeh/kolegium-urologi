@@ -33,7 +33,7 @@
                               </div>
                               <div class="stepwizard-step ">
                                 <a href="{{route('web.registration.index')}}" type="button" class="btn btn-dark btn-circle" style="color:white">2</a>
-                                <p>Pendaftaran PPDS</p>
+                                <p>Pengisian Data</p>
                               </div>
                               <div class="stepwizard-step ">
                                 <a href="{{route('web.certificate.index')}}" type="button" class="btn btn-primary btn-circle" style="color:white">3</a>
