@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\ExamParticipant;
 use App\Models\ExamSchedule;
+use App\Models\Registrant;
+use App\Models\RegistrantGraduation;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -91,12 +93,15 @@ class ExamParticipantController extends Controller
     public function store(Request $request, ExamSchedule $exam)
     {
         $request->validate([
-           'registrant_id' => 'required',
+           'registrant_graduation_id' => 'required',
         ]);
 
+        $registrant_graduation = RegistrantGraduation::where('id',$request->registrant_id)->first();
+        $resgistrant = Registrant::where('user_id',$registrant_graduation->user_id)->first();
+
         $exam->participants()->create([
-            'registrant_id' => $request->registrant_id,
-            'registrant_graduation_id' => $request->registrant_id,
+            'registrant_id' => $resgistrant->id,
+            'registrant_graduation_id' => $request->registrant_graduation_id,
             'description' => $request->description
         ]);
 

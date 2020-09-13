@@ -12,7 +12,7 @@
                     <div class="form-group row">
                         <div class="col-lg-12">
                             <label class="form-control-label">Peserta <span class="kt-font-danger">*</span> :</label>
-                            <select name="registrant_id" required class="select2-registrant"></select>
+                            <select name="registrant_graduation_id" required class="select2-registrant"></select>
                         </div>
                     </div>
                     <div class="form-group row">
