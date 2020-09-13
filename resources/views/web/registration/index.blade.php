@@ -33,7 +33,7 @@
                               </div>
                               <div class="stepwizard-step ">
                                 <a href="{{route('web.registration.index')}}" type="button" class="btn btn-primary btn-circle" style="color:white">2</a>
-                                <p>Pendaftaran PPDS</p>
+                                <p>Pengisian Data</p>
                               </div>
                                 @php
                                     $graduation = App\Models\RegistrantGraduation::where('user_id',auth()->user()->id)->where('status','Approve')->first();

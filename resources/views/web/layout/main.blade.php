@@ -74,7 +74,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-sm fixed-top bg-dark navbar-dark">
       <a class="navbar-brand" style="padding-left: 10px;">
-        <img src="{{ asset('assets') }}/media/logo/logo-light.png" width="190" height="50" class="d-inline-block align-top" alt="">
+        <img src="{{ asset('assets') }}/media/logo/logo-light.png" width="200" height="70" class="d-inline-block align-top" alt="">
       </a>
 
       @if(Auth::check())
