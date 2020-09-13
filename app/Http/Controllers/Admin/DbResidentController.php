@@ -17,7 +17,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Crypt;
 use Session;
 
-class ResidentController extends Controller
+class DbResidentController extends Controller
 {
     private $title;
     private $route;
@@ -152,9 +152,6 @@ class ResidentController extends Controller
             'phone' => $request->phone,
             'nim' => $request->nim,
             'tahun_masuk' => $request->tahun_masuk,
-
-            'no_sertifikat' => $request->no_sertifikat,
-            'date_sertifikat' => $request->date_sertifikat,
         ]);
 
         $user = User::where('npa',$request->npa)->first();
@@ -167,24 +164,6 @@ class ResidentController extends Controller
             'submission' => 1,
         ]);
 
-        if($request->status_lulus == 'on'){
-            $status_lulus = 'Lulus';
-
-            RegistrantGraduation::create([
-                'user_id' => $user->id,
-                'university_id' => $request->university_id,
-                'status' => 'Approve',
-            ]);
-
-            $registrant_graduation = RegistrantGraduation::where('user_id',$user->id)->first();
-
-            ExamParticipant::create([
-                'registrant_graduation_id' => $registrant_graduation->id,
-                'graduate' => 'Lulus',
-            ]);
-        }else{
-            $status_lulus = null;
-        }
 
         //return response()->json(['success' => true, 'message' => 'Input Database Resident Berhasil.']);
         return redirect()->back()->withSuccess('Input Database Resident Berhasil!');

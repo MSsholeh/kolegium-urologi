@@ -100,11 +100,16 @@ Route::middleware('auth:admin')->group(static function () {
     Route::resource('sertifikat', 'SertifikatController')->except(['store']);
 
     Route::prefix('resident')->name('resident.')->group(static function() {
-        Route::get('table', 'ResidentController@table')->name('table');
-        Route::get('{user_id}/kompetensi', 'ResidentController@kompetensi')->name('kompetensi');
-        Route::post('{user_id}/kompetensi', 'ResidentController@update')->name('update');
+        Route::get('table', 'DbResidentController@table')->name('table');
+        Route::get('{user_id}/kompetensi', 'DbResidentController@kompetensi')->name('kompetensi');
+        Route::post('{user_id}/kompetensi', 'DbResidentController@update')->name('update');
     });
-    Route::resource('resident', 'ResidentController')->except(['update']);
+    Route::resource('resident', 'DbResidentController')->except(['update']);
+
+    Route::prefix('database-spu')->name('database-spu.')->group(static function() {
+        Route::get('table', 'DbSpuController@table')->name('table');
+    });
+    Route::resource('database-spu', 'DbSpuController');
 
     Route::prefix('exam')->name('exam.')->group(static function() {
         Route::get('table', 'ExamScheduleController@table')->name('table');

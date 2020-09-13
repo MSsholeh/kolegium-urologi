@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="kt-section">
                                     <h3 class="kt-section__title">
-                                        Data PPDS
+                                        Data SPU
                                     </h3>
                                     <div class="kt-section__content">
                                         @if(auth()->user()->university_id === null)
@@ -156,6 +156,18 @@
                                             <div class="col-lg-12">
                                                 <label class="form-control-label">NIM<span class="kt-font-danger">*</span> :</label>
                                                 <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <label class="form-control-label">Nomor Sertifikat<span class="kt-font-danger">*</span> :</label>
+                                                <input type="text" name="no_sertifikat" class="form-control" placeholder="Nomor Sertifikat">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-12">
+                                                <label class="form-control-label">Tanggal Terbit Sertifikat<span class="kt-font-danger">*</span> :</label>
+                                                <input type="date" name="date_sertifikat" class="form-control" placeholder="Tanggal Sertifikat">
                                             </div>
                                         </div>
                                     </div>
