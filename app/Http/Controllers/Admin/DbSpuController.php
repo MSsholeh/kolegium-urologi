@@ -121,9 +121,11 @@ class DbSpuController extends Controller
             'status' => 'Approve',
         ]);
 
+        $registrant = Registrant::where('user_id',$user->id)->first();
         $registrant_graduation = RegistrantGraduation::where('user_id',$user->id)->first();
 
         ExamParticipant::create([
+            'registrant_id' => $registrant->id,
             'registrant_graduation_id' => $registrant_graduation->id,
             'graduate' => 'Lulus',
         ]);
