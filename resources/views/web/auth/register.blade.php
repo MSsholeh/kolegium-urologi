@@ -126,7 +126,7 @@
                               </div>
                               <div class="stepwizard-step ">
                                 <a type="button" class="btn btn-dark btn-circle" style="color:white">2</a>
-                                <p>Pendaftaran PPDS</p>
+                                <p>Pengisian Data</p>
                               </div>
                             </div>
                         </div>

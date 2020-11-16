@@ -73,7 +73,7 @@ class DbSpuController extends Controller
     {
         $request->validate([
             'nik' => ['required', 'string', 'min:16', 'max:16', 'unique:users'],
-            'npa' => ['required', 'string', 'min:5', 'unique:users'],
+            'npa' => ['required', 'string', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
