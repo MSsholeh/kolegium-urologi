@@ -55,14 +55,6 @@
                                             @endif
                                             @endforeach
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Tahun Masuk</th>
-                                                <th>NPA IDI</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
 								</div>
 							</div>
