@@ -41,7 +41,7 @@ class DbSpuController extends Controller
 
     public function table(DataTables $datatables)
     {
-        $query = ExamParticipant::with('registrant_graduation.user','registrant_graduation.university')->where('graduate','Lulus')->get();
+        $query = ExamParticipant::with('registrant_graduation.user','registrant_graduation.university')->where('graduate','Lulus')->orderBy('id', 'DESC')->get();
 
         return Datatables::of($query)
             ->addIndexColumn()

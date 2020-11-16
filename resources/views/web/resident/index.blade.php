@@ -89,7 +89,10 @@
 <script>
 $(document).ready(function() {
     $('table.display').DataTable({
-        fixedHeader: true,
+        fixedHeader: {
+            header: true,
+            footer: false
+        },
         filter: true,
         responsive: true,
     });

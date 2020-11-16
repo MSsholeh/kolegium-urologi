@@ -44,7 +44,7 @@ class DbResidentController extends Controller
         $query = Registrant::select('*', 'registrants.status as status_registrant', 'registrants.id as primary')
             ->with('user', 'university', 'requirement.period','participate')->where('registrants.graduate', 'Lulus')->whereDoesntHave('participate', function($q){
                 $q->where('graduate','Lulus');
-            });
+            })->orderBy('id', 'DESC');
 
         $admin = Auth::user();
         if ($admin->isAdminUniversity()) {
