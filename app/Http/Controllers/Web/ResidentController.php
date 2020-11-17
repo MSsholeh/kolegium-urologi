@@ -29,7 +29,7 @@ class ResidentController extends Controller
             'query' => Registrant::with('user', 'university', 'requirement.period','participate')
             ->whereDoesntHave('participate', function($q){
                 $q->where('graduate','Lulus');
-            }),
+            })->get()
         ];
 
         return view('web.resident.index', $data);
