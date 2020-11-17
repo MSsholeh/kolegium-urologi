@@ -23,7 +23,6 @@ class RegistrationController extends Controller
             'progress' => $user->registrants()->where('status', 'Request')->first(),
             'rejected' => $user->registrants()->where('status', 'Reject')->get(),
             'progress' => $user->registrants()->where('status', 'Request')->first(),
-            'cek_sertifikat' => $user->whereNotNull('no_sertifikat')->first(),
             'registrants' => $user->registrants()->with('university', 'requirement')->get(),
         ];
 

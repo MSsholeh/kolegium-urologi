@@ -88,7 +88,7 @@
                                     @endforeach
                                 </tbody>
                               </table>
-                        @elseif($submission < 2 && empty($progress) && !empty($cek_sertifikat))
+                        @elseif($submission < 2 && empty($progress))
                             <br>
                             <div class="alert alert-solid-warning alert-bold" role="alert">
                                 <div class="alert-text">Anda mempunyai kesempatan <b>{{ 2 - $submission }} kali</b> lagi untuk mendaftar.</div>
